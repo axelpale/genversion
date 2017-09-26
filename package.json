@@ -28,6 +28,6 @@
   },
   "devDependencies": {},
   "scripts": {
-    "release": "genversion lib/version.js"
+    "release": "genversion lib/version.js && npm publish"
   }
 }
