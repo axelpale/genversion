@@ -1,0 +1,33 @@
+{
+  "name": "genversion",
+  "version": "1.0.0",
+  "description": "A command line utility to read version from package.json and attach it into your module as a property",
+  "keywords": [
+    "release",
+    "version",
+    "build"
+  ],
+  "homepage": "https://github.com/axelpale/genversion",
+  "main": "index.js",
+  "bin": {
+    "genversion": "bin/genversion.js"
+  },
+  "author": {
+    "name": "Akseli Palen",
+    "email": "akseli.palen@gmail.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/axelpale/genversion.git"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "commander": "^2.11.0",
+    "find-package": "^1.0.0",
+    "firstline": "^1.2.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "release": "genversion lib/version.js"
+  }
+}
