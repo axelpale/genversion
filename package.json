@@ -35,6 +35,6 @@
   },
   "scripts": {
     "test": "mocha",
-    "release": "genversion lib/version.js && npm publish"
+    "release": "./bin/genversion.js lib/version.js && npm publish"
   }
 }
