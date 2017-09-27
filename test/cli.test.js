@@ -3,7 +3,7 @@
 const CliTest = require('command-line-test');
 const path = require('path');
 const fs = require('fs-extra');
-const should = require('should');
+const should = require('should');  // eslint-disable-line no-unused-vars
 const firstline = require('firstline');
 const pjson = require('../package');
 
@@ -13,9 +13,6 @@ const COMMAND = 'bin/genversion.js';  // Local
 
 const P = '.tmp/v.js';
 
-const createInvalidTemp = function () {
-
-};
 
 const removeTemp = function () {
   if (fs.existsSync(P)) {
@@ -31,7 +28,7 @@ describe('genversion cli', function () {
     removeTemp();
   });
 
-  afterEach(function () {
+  afterEach(function () {
     removeTemp();
   });
 
@@ -75,8 +72,8 @@ describe('genversion cli', function () {
       firstline(P).then(function (line) {
         line.should.equal(INVALID_SIGNATURE);
         return done();
-      }).catch(function (err) {
-        return done(err);
+      }).catch(function (errc) {
+        return done(errc);
       });
     });
   });
