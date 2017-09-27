@@ -32,6 +32,8 @@ After this, your module has a version property that matches with package.json an
 Great! Having a version property in your module is very convenient for debugging. More than once we have needed to debug a module for a long time just to find that it was a cached old version that caused the error. An inspectable version property would have helped a big time.
 
 
+## Projects using genversion
+
 
 ## Related projects
 
@@ -39,6 +41,11 @@ Great! Having a version property in your module is very convenient for debugging
 - [package-json-versionify](https://github.com/nolanlawson/package-json-versionify)
 
 
+## For developers
+
+Run test suite.
+
+    $ npm run test
 
 ## License
 
