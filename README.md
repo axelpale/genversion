@@ -34,8 +34,23 @@ After this, your module has a version property that matches with package.json an
 Great! Having a version property in your module is very convenient for debugging. More than once we have needed to debug a module for a long time just to find that it was a cached old version that caused the error. An inspectable version property would have helped a big time.
 
 
+## Command line API
 
-## API
+Directly from `$ genversion --help`:
+
+    Usage: genversion [options] <target>
+
+    Generates a version module at the target filepath.
+
+
+    Options:
+
+      -V, --version  output the version number
+      -v, --verbose  Output the new version.
+      -h, --help     output usage information
+
+
+## Node API
 
 You can also use genversion within your code:
 

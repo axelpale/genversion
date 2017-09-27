@@ -1,6 +1,6 @@
 {
   "name": "genversion",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "A command line utility to read version from package.json and attach it into your module as a property",
   "keywords": [
     "release",
@@ -37,6 +37,7 @@
   "scripts": {
     "test": "npm run lint && mocha",
     "lint": "eslint .",
-    "release": "./bin/genversion.js lib/version.js && npm publish"
+    "gv": "./bin/genversion.js lib/version.js",
+    "release": "npm run gv && npm publish"
   }
 }
