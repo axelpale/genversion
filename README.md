@@ -84,7 +84,7 @@ Check if it is possible to generate the version module into targetPath.
 
 ### genversion.generate(targetPath, callback)
 
-Read the version from package.json close to targetPath and generate a version module into targetPath.
+Read the version from the nearest package.json along the targetPath and generate a version module into targetPath.
 
 **Parameters:**
 
@@ -104,18 +104,20 @@ Read the version from package.json close to targetPath and generate a version mo
 
 ### genversion.version
 
-The version string of genversion module in [semantic versioning](http://semver.org/) format.
+The version string of genversion module in [semantic versioning](http://semver.org/) format. Generated with genversion itself, of course.
 
 
 ## Projects using genversion
 
+- [genversion](https://www.npmjs.com/package/genversion)
+- [poisson-process](https://www.npmjs.com/package/poisson-process)
 - [taach](https://www.npmjs.com/package/taach)
 
 
 ## Related projects
 
-- [versiony](https://github.com/ciena-blueplanet/versiony)
-- [package-json-versionify](https://github.com/nolanlawson/package-json-versionify)
+- [versiony](https://github.com/ciena-blueplanet/versiony) for version increments
+- [package-json-versionify](https://github.com/nolanlawson/package-json-versionify) for browserify builds
 
 
 ## For developers
