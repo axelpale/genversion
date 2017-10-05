@@ -1,0 +1,5 @@
+.eslintignore
+.eslintrc.js
+
+/doc
+/test
