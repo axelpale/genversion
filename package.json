@@ -37,14 +37,16 @@
   },
   "devDependencies": {
     "command-line-test": "^1.0.10",
-    "eslint": "^4.7.2",
+    "eslint": "^3.0.0",
     "fs-extra": "^4.0.2",
     "mocha": "^3.5.3",
-    "should": "^13.1.0"
+    "should": "^13.1.0",
+    "standard": "^10.0.3"
   },
   "scripts": {
     "test": "npm run lint && mocha",
-    "lint": "eslint .",
+    "lint": "standard 'bin/*.js' 'lib/**/*.js' 'test/**/*.js'",
+    "lintfix": "standard --fix 'bin/*.js' 'lib/**/*.js' 'test/**/*.js'",
     "gv": "./bin/genversion.js lib/version.js",
     "release": "npm run gv && npm run test && npm publish"
   }
