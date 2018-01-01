@@ -64,7 +64,8 @@ Directly from `$ genversion --help`:
     Options:
 
       -V, --version  output the version number
-      -v, --verbose  Output the new version.
+      -v, --verbose  output the new version
+      -s, --semi     use semicolons in generated code
       -h, --help     output usage information
 
 
@@ -100,24 +101,31 @@ Check if it is possible to generate the version module into targetPath.
     });
 
 
-### genversion.generate(targetPath, callback)
+### genversion.generate(targetPath, opts, callback)
 
 Read the version from the nearest package.json along the targetPath and generate a version module into targetPath.
 
 **Parameters:**
 
 - *targetPath:* string. An absolute or relative file path. Relative to `process.cwd()`.
+- *opts:* optional options. Available keys are:
+  - *useSemicolon:* optional boolean.
 - *callback:* function (err, version). Parameter *version* is the version string read from package.json. Parameter *err* is non-null if package.json cannot be found, its version is not a string, or writing the module fails.
 
-**Example:**
+**Examples:**
 
     gv.generate('lib/version.js', function (err, version) {
       if (err) {
         throw err;
       }
-
       console.log('Sliding into', version, 'like a sledge.');
     });
+
+    gv.generate('src/v.js', { useSemicolon: true }, function (err) {
+      if (err) { throw err }
+      console.log('Generated version file with a semicolon.')
+    })
+
 
 
 ### genversion.version
