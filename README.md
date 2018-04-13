@@ -66,6 +66,7 @@ Directly from `$ genversion --help`:
       -V, --version  output the version number
       -v, --verbose  output the new version
       -s, --semi     use semicolons in generated code
+      -e, --es6      use es6 syntax in generated code
       -h, --help     output usage information
 
 
