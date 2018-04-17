@@ -18,6 +18,10 @@ Voilà! The new lib/version.js:
 
     module.exports = '1.2.3'
 
+Use flags to match your coding style. `$ genversion --es6 --semi lib/version.js` creates:
+
+    export const version = '1.2.3';
+
 ## Integrate to your build
 
 First install via [npm](https://www.npmjs.com/package/genversion).
@@ -33,6 +37,13 @@ Now, your job is to 1) choose a path for the version file, 2) require() the new 
 
     ...
     exports.version = require('./lib/version')
+    ...
+
+If you use `--es6` flag:
+
+    ...
+    import { version } from './lib/version'
+    export const version
     ...
 
 Then, let us integrate genversion into your build task.
