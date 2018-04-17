@@ -15,6 +15,7 @@ program
   .description('Generates a version module at the target filepath.')
   .option('-v, --verbose', 'output the new version', increaseVerbosity, 0)
   .option('-s, --semi', 'use semicolons in generated code')
+  .option('-e, --es6', 'use es6 syntax in generated code')
   .action(function (target) {
     gv.check(target, function (err, doesExist, isByGenversion) {
       if (err) {
@@ -25,7 +26,8 @@ program
       if (doesExist) {
         if (isByGenversion) {
           gv.generate(target, {
-            useSemicolon: program.semi
+            useSemicolon: program.semi,
+            useEs6Syntax: program.es6
           }, function (errg, version) {
             if (errg) {
               console.error(errg)
@@ -48,7 +50,8 @@ program
       } else {
         // OK, file does not exist.
         gv.generate(target, {
-          useSemicolon: program.semi
+          useSemicolon: program.semi,
+          useEs6Syntax: program.es6
         }, function (errg, version) {
           if (errg) {
             console.error(errg)
