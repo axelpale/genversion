@@ -13,7 +13,9 @@
     "development",
     "dev",
     "generator",
-    "cli"
+    "cli",
+    "es6",
+    "es2015"
   ],
   "homepage": "https://github.com/axelpale/genversion",
   "main": "index.js",
