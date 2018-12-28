@@ -152,6 +152,7 @@ The version string of genversion module in [semantic versioning](http://semver.o
 - [taaspace](https://www.npmjs.com/package/taaspace)
 - [taach](https://www.npmjs.com/package/taach)
 
+Do you use genversion in your project? We are happy to mention it in the list. Just hit us with an issue or a pull request.
 
 ## Related projects
 
