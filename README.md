@@ -121,7 +121,8 @@ Read the version from the nearest package.json along the targetPath and generate
 
 - *targetPath:* string. An absolute or relative file path. Relative to `process.cwd()`.
 - *opts:* optional options. Available keys are:
-  - *useSemicolon:* optional boolean.
+  - *useSemicolon:* optional boolean. Defaults to false.
+  - *useEs6Syntax:* optional boolean. Defaults to false.
 - *callback:* function (err, version). Parameter *version* is the version string read from package.json. Parameter *err* is non-null if package.json cannot be found, its version is not a string, or writing the module fails.
 
 **Examples:**
