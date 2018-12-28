@@ -130,7 +130,8 @@ describe('genversion cli', function () {
         return
       }
 
-      response.stderr.should.not.equal('')
+      // NOTE: response.stderr is null because process exited with code 1
+      response.error.code.should.equal(1)
 
       return done()
     })

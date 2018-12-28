@@ -17,10 +17,15 @@ program
   .option('-s, --semi', 'use semicolons in generated code')
   .option('-e, --es6', 'use es6 syntax in generated code')
   .action(function (target) {
+    if (typeof target !== 'string' || target === '') {
+      console.error('Missing argument: target')
+      return process.exit(1)
+    }
+
     gv.check(target, function (err, doesExist, isByGenversion) {
       if (err) {
         console.error(err.toString())
-        process.exit(1)
+        return process.exit(1)
       }
 
       if (doesExist) {
