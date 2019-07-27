@@ -16,10 +16,15 @@ program
   .option('-v, --verbose', 'output the new version', increaseVerbosity, 0)
   .option('-s, --semi', 'use semicolons in generated code')
   .option('-e, --es6', 'use es6 syntax in generated code')
+  .option('-p, --source <path>', 'search for package.json along this path')
   .action(function (target) {
     if (typeof target !== 'string' || target === '') {
       console.error('Missing argument: target')
       return process.exit(1)
+    }
+
+    if (typeof program.source !== 'string' || program.source === '') {
+      program.source = target
     }
 
     gv.check(target, function (err, doesExist, isByGenversion) {
@@ -32,7 +37,8 @@ program
         if (isByGenversion) {
           gv.generate(target, {
             useSemicolon: program.semi,
-            useEs6Syntax: program.es6
+            useEs6Syntax: program.es6,
+            source: program.source
           }, function (errg, version) {
             if (errg) {
               console.error(errg)
@@ -56,7 +62,8 @@ program
         // OK, file does not exist.
         gv.generate(target, {
           useSemicolon: program.semi,
-          useEs6Syntax: program.es6
+          useEs6Syntax: program.es6,
+          source: program.source
         }, function (errg, version) {
           if (errg) {
             console.error(errg)
