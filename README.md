@@ -22,6 +22,8 @@ Use flags to match your coding style. `$ genversion --es6 --semi lib/version.js`
 
     export const version = '1.2.3';
 
+By default, genversion reads the version from the `package.json` nearest to the target `version.js`. In case your project contains multiple `package.json` files along the target path you can specify the one with `--source <path>` parameter.
+
 ## Integrate to your build
 
 First install via [npm](https://www.npmjs.com/package/genversion).
@@ -74,11 +76,12 @@ Directly from `$ genversion --help`:
 
     Options:
 
-      -V, --version  output the version number
-      -v, --verbose  output the new version
-      -s, --semi     use semicolons in generated code
-      -e, --es6      use es6 syntax in generated code
-      -h, --help     output usage information
+      -V, --version        output the version number
+      -v, --verbose        output the new version
+      -s, --semi           use semicolons in generated code
+      -e, --es6            use es6 syntax in generated code
+      -p, --source <path>  search for package.json along a custom path
+      -h, --help           output usage information
 
 
 ## Node API
@@ -115,12 +118,13 @@ Check if it is possible to generate the version module into targetPath.
 
 ### genversion.generate(targetPath, opts, callback)
 
-Read the version from the nearest package.json along the targetPath and generate a version module into targetPath.
+Read the version from the nearest package.json along the `targetPath` and generate a version module into `targetPath`. A custom path to package.json can be specified with `opts.source`.
 
 **Parameters:**
 
 - *targetPath:* string. An absolute or relative file path. Relative to `process.cwd()`.
 - *opts:* optional options. Available keys are:
+  - *source:* optional string. Defaults to targetPath.
   - *useSemicolon:* optional boolean. Defaults to false.
   - *useEs6Syntax:* optional boolean. Defaults to false.
 - *callback:* function (err, version). Parameter *version* is the version string read from package.json. Parameter *err* is non-null if package.json cannot be found, its version is not a string, or writing the module fails.

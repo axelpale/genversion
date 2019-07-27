@@ -16,7 +16,7 @@ program
   .option('-v, --verbose', 'output the new version', increaseVerbosity, 0)
   .option('-s, --semi', 'use semicolons in generated code')
   .option('-e, --es6', 'use es6 syntax in generated code')
-  .option('-p, --source <path>', 'search for package.json along this path')
+  .option('-p, --source <path>', 'search for package.json along a custom path')
   .action(function (target) {
     if (typeof target !== 'string' || target === '') {
       console.error('Missing argument: target')
