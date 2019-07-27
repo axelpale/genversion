@@ -1,0 +1,11 @@
+{
+  "name": "genversion-fixture",
+  "version": "0.1.2",
+  "description": "A dummy package.json for tests",
+  "keywords": [],
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {},
+  "scripts": {}
+}
