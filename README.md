@@ -95,7 +95,7 @@ The available properties and functions are listed below.
 
 ### genversion.check(targetPath, callback)
 
-Check if it is possible to generate the version module into targetPath.
+Check if it is possible to generate the version module into `targetPath`.
 
 **Parameters:**
 
@@ -118,16 +118,16 @@ Check if it is possible to generate the version module into targetPath.
 
 ### genversion.generate(targetPath, opts, callback)
 
-Read the version from the nearest package.json along the `targetPath` and generate a version module into `targetPath`. A custom path to package.json can be specified with `opts.source`.
+Read the version property from the nearest `package.json` along the `targetPath` and then generate a version module file at `targetPath`. A custom path to `package.json` can be specified with `opts.source`.
 
 **Parameters:**
 
 - *targetPath:* string. An absolute or relative file path. Relative to `process.cwd()`.
 - *opts:* optional options. Available keys are:
-  - *source:* optional string. Defaults to targetPath.
-  - *useSemicolon:* optional boolean. Defaults to false.
-  - *useEs6Syntax:* optional boolean. Defaults to false.
-- *callback:* function (err, version). Parameter *version* is the version string read from package.json. Parameter *err* is non-null if package.json cannot be found, its version is not a string, or writing the module fails.
+  - *source:* optional string. An absolute or relative path to a file or directory. Defaults to the value of `targetPath`.
+  - *useSemicolon:* optional boolean. Defaults to `false`.
+  - *useEs6Syntax:* optional boolean. Defaults to `false`.
+- *callback:* function (err, version). Parameter *version* is the version string read from `package.json`. Parameter *err* is non-null if `package.json` cannot be found, its version is not a string, or writing the module fails.
 
 **Examples:**
 
@@ -171,7 +171,7 @@ Run test suite:
 
     $ npm run test
 
-To make release, bump the version in package.json and run:
+To make release, bump the version in `package.json` and run:
 
     $ npm run release
 
