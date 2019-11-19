@@ -4,7 +4,7 @@
 
 ![Logo](doc/logo.png?raw=true "Abracadabra...and behold!")
 
-So you want `yourmodule.version` to follow the version in package.json but are tired of updating it manually every time the version changes? You could import your package.json into the module but you know it is a **naughty** thing to do! Genversion to the rescue!
+So you want `yourmodule.version` to follow the version in package.json but are tired of updating it manually every time the version changes? You could import your package.json into the module but you know [it is a naughty thing](https://stackoverflow.com/a/10855054/638546) to do! Genversion to the rescue!
 
 ## Try it out
 
