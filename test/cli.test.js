@@ -10,7 +10,8 @@ const pjson = require('../package')
 
 // If global command is used, you must 'npm link' before tests.
 // const COMMAND = 'genversion';  // Global
-const COMMAND = 'bin/genversion.js'  // Local
+const GENERATE_COMMAND = 'bin/genversion.js'  // Local
+const CHECK_COMMAND = 'bin/checkVersion.js'  // Local
 
 const P = '.tmp/v.js'
 
@@ -33,7 +34,7 @@ describe('genversion cli', function () {
   it('should generate file and dir if they do not exist', function (done) {
     const clit = new CliTest()
 
-    clit.exec(COMMAND + ' ' + P, function (err, response) {
+    clit.exec(GENERATE_COMMAND + ' ' + P, function (err, response) {
       if (err) {
         console.error(err, response)
         return
@@ -56,7 +57,7 @@ describe('genversion cli', function () {
 
     const clit = new CliTest()
 
-    clit.exec(COMMAND + ' ' + P, function (err, response) {
+    clit.exec(GENERATE_COMMAND + ' ' + P, function (err, response) {
       if (err) {
         console.error(err, response)
         return
@@ -77,7 +78,7 @@ describe('genversion cli', function () {
   it('should allow --es6 flag', function (done) {
     const clit = new CliTest()
 
-    clit.exec(COMMAND + ' --es6 ' + P, function (err, response) {
+    clit.exec(GENERATE_COMMAND + ' --es6 ' + P, function (err, response) {
       if (err) {
         console.error(err, response)
         return
@@ -93,7 +94,7 @@ describe('genversion cli', function () {
   it('should allow --semi and --es6 flag', function (done) {
     const clit = new CliTest()
 
-    clit.exec(COMMAND + ' --semi --es6 ' + P, function (err, response) {
+    clit.exec(GENERATE_COMMAND + ' --semi --es6 ' + P, function (err, response) {
       if (err) {
         console.error(err, response)
         return
@@ -109,7 +110,7 @@ describe('genversion cli', function () {
   it('should allow verbose flag', function (done) {
     const clit = new CliTest()
 
-    clit.exec(COMMAND + ' -v ' + P, function (err, response) {
+    clit.exec(GENERATE_COMMAND + ' -v ' + P, function (err, response) {
       if (err) {
         console.error(err, response)
         return
@@ -124,7 +125,7 @@ describe('genversion cli', function () {
   it('should allow source argument with filepath', function (done) {
     const clit = new CliTest()
 
-    const cmd = COMMAND + ' --source ./test/fixture/package.json ' + P
+    const cmd = GENERATE_COMMAND + ' --source ./test/fixture/package.json ' + P
     clit.exec(cmd, function (err, resp) {
       if (err) {
         console.error(err, resp)
@@ -142,7 +143,7 @@ describe('genversion cli', function () {
   it('should allow source argument with dirpath', function (done) {
     const clit = new CliTest()
 
-    const cmd = COMMAND + ' --source ./test/fixture ' + P
+    const cmd = GENERATE_COMMAND + ' --source ./test/fixture ' + P
     clit.exec(cmd, function (err, resp) {
       if (err) {
         console.error(err, resp)
@@ -160,7 +161,7 @@ describe('genversion cli', function () {
   it('should detect missing target path', function (done) {
     const clit = new CliTest()
 
-    clit.exec(COMMAND + ' -v', function (err, response) {
+    clit.exec(GENERATE_COMMAND + ' -v', function (err, response) {
       if (err) {
         console.error(err, response)
         return
@@ -176,7 +177,7 @@ describe('genversion cli', function () {
   it('should show version', function (done) {
     const clit = new CliTest()
 
-    clit.exec(COMMAND + ' --version', function (err, response) {
+    clit.exec(GENERATE_COMMAND + ' --version', function (err, response) {
       if (err) {
         console.error(err)
         return
