@@ -11,7 +11,7 @@ const pjson = require('../package')
 // If global command is used, you must 'npm link' before tests.
 // const COMMAND = 'genversion';  // Global
 const GENERATE_COMMAND = 'bin/genversion.js'  // Local
-const CHECK_COMMAND = 'bin/checkVersion.js'  // Local
+// const CHECK_COMMAND = 'bin/checkVersion.js'  // Local
 
 const P = '.tmp/v.js'
 
