@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 var gv = require('../lib/genversion')
+var cv = require('../lib/checkVersion')
 var v = require('../lib/version')
 var program = require('commander')
 var path = require('path')
@@ -17,10 +18,40 @@ program
   .option('-s, --semi', 'use semicolons in generated code')
   .option('-e, --es6', 'use es6 syntax in generated code')
   .option('-p, --source <path>', 'search for package.json along a custom path')
+  .option('-c, --check-only', 'checks for an existing version file and compares content to current version. Useful for pre-commit hooks and similar')
   .action(function (target) {
     if (typeof target !== 'string' || target === '') {
       console.error('Missing argument: target')
       return process.exit(1)
+    }
+
+    if (program.checkOnly) {
+      cv.check(target, {
+        useSemicolon: program.semi,
+        useEs6Syntax: program.es6,
+        source: program.source
+      }, function (err, comparisonResult, version) {
+        if (err) {
+          console.error(err.toString())
+          return process.exit(1)
+        }
+        if (program.verbose >= 1) {
+          switch (comparisonResult) {
+            case 0:
+              console.log(`The version file ${path.basename(target)} matches the content for version ${version}`)
+              break
+            case 1:
+              console.error(`The version file ${path.basename(target)} could not be found.`)
+              break
+            case 2:
+              console.error(`The version file ${path.basename(target)} doesn't match the expected content for version ${version}`)
+              break
+            default:
+              throw new Error(`unknown comparisonResult: ${comparisonResult}`)
+          }
+        }
+        return process.exit(comparisonResult)
+      })
     }
 
     if (typeof program.source !== 'string' || program.source === '') {
