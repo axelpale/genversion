@@ -26,7 +26,7 @@ program
     }
 
     if (program.checkOnly) {
-      cv.check(target, {
+      return cv.check(target, {
         useSemicolon: program.semi,
         useEs6Syntax: program.es6,
         source: program.source
