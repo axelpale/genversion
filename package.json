@@ -20,7 +20,8 @@
   "homepage": "https://github.com/axelpale/genversion",
   "main": "index.js",
   "bin": {
-    "genversion": "bin/genversion.js"
+    "genversion": "bin/genversion.js",
+    "checkversion": "bin/checkVersion.js"
   },
   "author": {
     "name": "Akseli Palen",
