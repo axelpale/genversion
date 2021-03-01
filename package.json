@@ -35,7 +35,6 @@
   "dependencies": {
     "commander": "^2.11.0",
     "find-package": "^1.0.0",
-    "firstline": "^1.2.1",
     "mkdirp": "^0.5.1"
   },
   "devDependencies": {

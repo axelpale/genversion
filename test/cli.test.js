@@ -5,7 +5,6 @@ const CliTest = require('command-line-test')
 const path = require('path')
 const fs = require('fs-extra')
 const should = require('should') // eslint-disable-line no-unused-vars
-const firstline = require('firstline')
 const pjson = require('../package')
 
 // If global command is used, you must 'npm link' before tests.
@@ -68,11 +67,12 @@ describe('genversion cli', () => {
       response.stderr.should.startWith('ERROR')
 
       // Ensure the file was not replaced
-      firstline(P).then((line) => {
-        line.should.equal(INVALID_SIGNATURE)
+      fs.readFile(P, 'utf8', (errf, contents) => {
+        if (errf) {
+          return done(errf)
+        }
+        contents.should.equal(INVALID_SIGNATURE)
         return done()
-      }).catch((errc) => {
-        return done(errc)
       })
     })
   })
