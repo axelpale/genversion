@@ -50,6 +50,7 @@
     "lint": "standard",
     "lintfix": "standard --fix",
     "gv": "./bin/genversion.js lib/version.js",
+    "check": "./bin/genversion.js --verbose --check-only lib/version.js",
     "release": "npm run gv && npm run test && npm publish"
   }
 }
