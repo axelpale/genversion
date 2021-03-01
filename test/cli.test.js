@@ -124,37 +124,39 @@ describe('genversion cli', () => {
     })
   })
 
-  it('should allow source argument with filepath', (done) => {
-    const clit = new CliTest()
+  describe('flag --source', () => {
+    it('should allow source argument with filepath', (done) => {
+      const clit = new CliTest()
 
-    const cmd = GENERATE_COMMAND + ' --source ./test/fixture/package.json ' + P
-    clit.exec(cmd, (err, resp) => {
-      if (err) {
-        console.error(err, resp)
-        return
-      }
+      const cmd = GENERATE_COMMAND + ' --source ./test/fixture/package.json ' + P
+      clit.exec(cmd, (err, resp) => {
+        if (err) {
+          console.error(err, resp)
+          return
+        }
 
-      const wantedContent = SIGNATURE + 'module.exports = \'0.1.2\'\n'
-      fs.readFileSync(P).toString().should.equal(wantedContent)
+        const wantedContent = SIGNATURE + 'module.exports = \'0.1.2\'\n'
+        fs.readFileSync(P).toString().should.equal(wantedContent)
 
-      return done()
+        return done()
+      })
     })
-  })
 
-  it('should allow source argument with dirpath', (done) => {
-    const clit = new CliTest()
+    it('should allow source argument with dirpath', (done) => {
+      const clit = new CliTest()
 
-    const cmd = GENERATE_COMMAND + ' --source ./test/fixture ' + P
-    clit.exec(cmd, (err, resp) => {
-      if (err) {
-        console.error(err, resp)
-        return
-      }
+      const cmd = GENERATE_COMMAND + ' --source ./test/fixture ' + P
+      clit.exec(cmd, (err, resp) => {
+        if (err) {
+          console.error(err, resp)
+          return
+        }
 
-      const wantedContent = SIGNATURE + 'module.exports = \'0.1.2\'\n'
-      fs.readFileSync(P).toString().should.equal(wantedContent)
+        const wantedContent = SIGNATURE + 'module.exports = \'0.1.2\'\n'
+        fs.readFileSync(P).toString().should.equal(wantedContent)
 
-      return done()
+        return done()
+      })
     })
   })
 
