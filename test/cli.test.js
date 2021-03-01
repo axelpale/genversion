@@ -77,6 +77,22 @@ describe('genversion cli', () => {
     })
   })
 
+  it('should detect missing target path', (done) => {
+    const clit = new CliTest()
+
+    clit.exec(GENERATE_COMMAND, (err, response) => {
+      if (err) {
+        console.error(err, response)
+        return
+      }
+
+      // NOTE: response.stderr is null because process exited with code 1
+      response.error.code.should.equal(1)
+
+      return done()
+    })
+  })
+
   it('should allow --es6 flag', (done) => {
     const clit = new CliTest()
 
@@ -157,22 +173,6 @@ describe('genversion cli', () => {
 
         return done()
       })
-    })
-  })
-
-  it('should detect missing target path', (done) => {
-    const clit = new CliTest()
-
-    clit.exec(GENERATE_COMMAND + ' -v', (err, response) => {
-      if (err) {
-        console.error(err, response)
-        return
-      }
-
-      // NOTE: response.stderr is null because process exited with code 1
-      response.error.code.should.equal(1)
-
-      return done()
     })
   })
 
