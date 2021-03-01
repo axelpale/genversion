@@ -59,11 +59,12 @@ program
       })
     }
 
+    // A source path along to search for the package.json
     if (typeof program.source !== 'string' || program.source === '') {
       program.source = target
     }
 
-    gv.check(target, (err, doesExist, isByGenversion) => {
+    gv.check(target, opts, (err, doesExist, isByGenversion) => {
       if (err) {
         console.error(err.toString())
         return process.exit(1)
