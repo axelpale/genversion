@@ -206,6 +206,10 @@ describe('genversion cli', () => {
 
           // File exists and has correct syntax
           should.equal(response.error, null)
+          // Should not have any output
+          response.stdout.should.equal('')
+          response.stderr.should.equal('')
+
           return done()
         })
       })
