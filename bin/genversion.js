@@ -13,7 +13,7 @@ program
   .version(v)
   .usage('[options] <target>')
   .description('Generates a version module at the target filepath.')
-  .option('-v, --verbose', 'output the new version', increaseVerbosity, 0)
+  .option('-v, --verbose', 'increased output verbosity', increaseVerbosity, 0)
   .option('-s, --semi', 'use semicolons in generated code')
   .option('-e, --es6', 'use es6 syntax in generated code')
   .option('-p, --source <path>', 'search for package.json along a custom path')

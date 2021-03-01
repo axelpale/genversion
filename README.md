@@ -79,11 +79,9 @@ Directly from `$ genversion --help`:
 
     Generates a version module at the target filepath.
 
-
     Options:
-
       -V, --version        output the version number
-      -v, --verbose        output the new version
+      -v, --verbose        increased output verbosity
       -s, --semi           use semicolons in generated code
       -e, --es6            use es6 syntax in generated code
       -p, --source <path>  search for package.json along a custom path
