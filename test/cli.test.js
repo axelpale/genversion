@@ -224,11 +224,16 @@ describe('genversion cli', () => {
         }
 
         response.error.code.should.equal(1)
+        // Should not have any output.
+        // Maybe not good way to test because CliTest nulls stdout anyway.
+        should(response.stdout).equal(null)
+        should(response.stderr).equal(null)
+
         return done()
       })
     })
 
-    it('should detect a standard change', (done) => {
+    it('should detect a standard change', done => {
       const clit = new CliTest()
 
       clit.exec(GENERATE_COMMAND + ' ' + P, (err) => {
@@ -248,5 +253,23 @@ describe('genversion cli', () => {
         })
       })
     })
+
+    // TODO cannot test verbosity due to annoying shortcoming in
+    // TODO command-line-test, where stdout and stderr become nulls
+    // TODO if exit code other than 0
+    // it('should have verbose output', done => {
+    //   const clit = new CliTest()
+    //
+    //   const FLAGS = ' --verbose --check-only '
+    //   clit.exec(GENERATE_COMMAND + FLAGS + P, (err, response) => {
+    //     if (err) {
+    //       return done(err)
+    //     }
+    //
+    //     // File exists but has incorrect syntax
+    //     response.stdout.should.include('could not be found')
+    //     return done()
+    //   })
+    // })
   })
 })
