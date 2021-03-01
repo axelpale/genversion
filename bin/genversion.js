@@ -38,16 +38,19 @@ program
         if (program.verbose >= 1) {
           switch (comparisonResult) {
             case 0:
-              console.log(`The version file ${path.basename(target)} matches the content for version ${version}`)
+              console.log('The version module ' + path.basename(target) +
+                ' matches the content for version ' + version)
               break
             case 1:
-              console.error(`The version file ${path.basename(target)} could not be found.`)
+              console.error('The version module ' + path.basename(target) +
+                ' could not be found.')
               break
             case 2:
-              console.error(`The version file ${path.basename(target)} doesn't match the expected content for version ${version}`)
+              console.error('The version module ' + path.basename(target) +
+                ' doesn\'t match the expected content for version ' + version)
               break
             default:
-              throw new Error(`unknown comparisonResult: ${comparisonResult}`)
+              throw new Error('Unknown comparisonResult: ' + comparisonResult)
           }
         }
         return process.exit(comparisonResult)
@@ -77,7 +80,7 @@ program
             }
 
             if (program.verbose >= 1) {
-              console.log('File ' + path.basename(target) +
+              console.log('Version module ' + path.basename(target) +
                 ' was successfully updated to ' + version)
             }
           })
@@ -102,7 +105,7 @@ program
           }
 
           if (program.verbose >= 1) {
-            console.log('File ' + path.basename(target) +
+            console.log('Version module ' + path.basename(target) +
               ' was successfully generated with version ' + version)
           }
         })
