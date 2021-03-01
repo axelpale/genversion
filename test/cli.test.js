@@ -189,7 +189,7 @@ describe('genversion cli', () => {
     })
   })
 
-  describe('--check-only', () => {
+  describe('flag --check-only', () => {
     it('should detect matching file', (done) => {
       const clit = new CliTest()
 
@@ -199,13 +199,13 @@ describe('genversion cli', () => {
         }
 
         const FLAGS = ' --check-only '
-        clit.exec(GENERATE_COMMAND + FLAGS + P, (err, response) => {
-          if (err) {
-            return done(err)
+        clit.exec(GENERATE_COMMAND + FLAGS + P, (errx, response) => {
+          if (errx) {
+            return done(errx)
           }
 
           // File exists and has correct syntax
-          response.error.code.should.equal(0)
+          should.equal(response.error, null)
           return done()
         })
       })
