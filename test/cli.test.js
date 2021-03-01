@@ -48,16 +48,7 @@ describe('genversion cli', () => {
 
       fs.existsSync(P).should.equal(true)
 
-      clit.exec(GENERATE_COMMAND + ' --check-only' + P, (err, response) => {
-        if (err) {
-          console.error(err, response)
-          return
-        }
-        // Should not have any output
-        response.stdout.should.equal('')
-        response.stderr.should.equal('')
-        return done()
-      })
+      return done()
     })
   })
 
@@ -98,13 +89,7 @@ describe('genversion cli', () => {
       fs.readFileSync(P).toString().should.equal(SIGNATURE +
         'export const version = \'' + pjson.version + '\'\n')
 
-      clit.exec(GENERATE_COMMAND + ' --es6 --check-only' + P, (err, response) => {
-        if (err) {
-          console.error(err, response)
-          return
-        }
-        return done()
-      })
+      return done()
     })
   })
 
@@ -201,6 +186,63 @@ describe('genversion cli', () => {
       response.stdout.should.equal(pjson.version)
 
       return done()
+    })
+  })
+
+  describe('--check-only', () => {
+    it('should detect matching file', (done) => {
+      const clit = new CliTest()
+
+      clit.exec(GENERATE_COMMAND + ' ' + P, (err) => {
+        if (err) {
+          return done(err)
+        }
+
+        const FLAGS = ' --check-only '
+        clit.exec(GENERATE_COMMAND + FLAGS + P, (err, response) => {
+          if (err) {
+            return done(err)
+          }
+
+          // File exists and has correct syntax
+          response.error.code.should.equal(0)
+          return done()
+        })
+      })
+    })
+
+    it('should detect missing file', done => {
+      const clit = new CliTest()
+
+      clit.exec(GENERATE_COMMAND + ' --check-only ' + P, (err, response) => {
+        if (err) {
+          return done(err)
+        }
+
+        response.error.code.should.equal(1)
+        return done()
+      })
+    })
+
+    it('should detect a standard change', (done) => {
+      const clit = new CliTest()
+
+      clit.exec(GENERATE_COMMAND + ' ' + P, (err) => {
+        if (err) {
+          return done(err)
+        }
+
+        const FLAGS = ' --es6 --check-only '
+        clit.exec(GENERATE_COMMAND + FLAGS + P, (err, response) => {
+          if (err) {
+            return done(err)
+          }
+
+          // File exists but has incorrect syntax
+          response.error.code.should.equal(2)
+          return done()
+        })
+      })
     })
   })
 })
