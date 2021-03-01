@@ -48,8 +48,8 @@
   },
   "scripts": {
     "test": "npm run lint && mocha",
-    "lint": "standard 'bin/*.js' 'lib/**/*.js' 'test/**/*.js'",
-    "lintfix": "standard --fix 'bin/*.js' 'lib/**/*.js' 'test/**/*.js'",
+    "lint": "standard",
+    "lintfix": "standard --fix",
     "gv": "./bin/genversion.js lib/version.js",
     "release": "npm run gv && npm run test && npm publish"
   }
