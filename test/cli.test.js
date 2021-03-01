@@ -127,18 +127,20 @@ describe('genversion cli', () => {
     })
   })
 
-  it('should allow verbose flag', (done) => {
-    const clit = new CliTest()
+  describe('flag --verbose', () => {
+    it('should allow verbose flag', (done) => {
+      const clit = new CliTest()
 
-    clit.exec(GENERATE_COMMAND + ' -v ' + P, (err, response) => {
-      if (err) {
-        console.error(err, response)
-        return
-      }
+      clit.exec(GENERATE_COMMAND + ' -v ' + P, (err, response) => {
+        if (err) {
+          console.error(err, response)
+          return
+        }
 
-      response.stdout.should.containEql(pjson.version)
+        response.stdout.should.containEql(pjson.version)
 
-      return done()
+        return done()
+      })
     })
   })
 
