@@ -87,6 +87,7 @@ Directly from `$ genversion --help`:
       -s, --semi           use semicolons in generated code
       -e, --es6            use es6 syntax in generated code
       -p, --source <path>  search for package.json along a custom path
+      -c, --check-only     check if the version module is up to date
       -h, --help           output usage information
 
 
