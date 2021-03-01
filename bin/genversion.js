@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 
 const gv = require('../lib/genversion')
-const cv = require('../lib/checkVersion')
 const v = require('../lib/version')
 const program = require('commander')
 const path = require('path')
@@ -32,16 +31,30 @@ program
     }
 
     if (program.checkOnly) {
-      return cv.check(target, opts, (err, comparisonResult, version) => {
+      return gv.check(target, opts, (err, doesExist, isByGv, isUpToDate) => {
         if (err) {
           console.error(err.toString())
           return process.exit(1)
         }
+
+        let exitCode = 1
+        if (doesExist) {
+          if (isByGv) {
+            if (isUpToDate) {
+              exitCode = 0
+            } else {
+              exitCode = 2
+            }
+          } else {
+            exitCode = 2
+          }
+        }
+
         if (program.verbose >= 1) {
-          switch (comparisonResult) {
+          switch (exitCode) {
             case 0:
               console.log('The version module ' + path.basename(target) +
-                ' matches the content for version ' + version)
+                ' is up to date.')
               break
             case 1:
               console.error('The version module ' + path.basename(target) +
@@ -49,13 +62,14 @@ program
               break
             case 2:
               console.error('The version module ' + path.basename(target) +
-                ' doesn\'t match the expected content for version ' + version)
+                ' has outdated content.')
               break
             default:
-              throw new Error('Unknown comparisonResult: ' + comparisonResult)
+              throw new Error('Unknown exitCode: ' + exitCode)
           }
         }
-        return process.exit(comparisonResult)
+
+        return process.exit(exitCode)
       })
     }
 
