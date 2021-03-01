@@ -174,18 +174,20 @@ describe('genversion cli', () => {
     })
   })
 
-  it('should show version', (done) => {
-    const clit = new CliTest()
+  describe('flag --version', () => {
+    it('should show genversion\'s own version', (done) => {
+      const clit = new CliTest()
 
-    clit.exec(GENERATE_COMMAND + ' --version', (err, response) => {
-      if (err) {
-        console.error(err)
-        return
-      }
+      clit.exec(GENERATE_COMMAND + ' --version', (err, response) => {
+        if (err) {
+          console.error(err)
+          return
+        }
 
-      response.stdout.should.equal(pjson.version)
+        response.stdout.should.equal(pjson.version)
 
-      return done()
+        return done()
+      })
     })
   })
 
