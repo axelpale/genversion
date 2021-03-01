@@ -18,7 +18,7 @@ program
   .option('-s, --semi', 'use semicolons in generated code')
   .option('-e, --es6', 'use es6 syntax in generated code')
   .option('-p, --source <path>', 'search for package.json along a custom path')
-  .option('-c, --check-only', 'checks for an existing version file and compares content to current version. Useful for pre-commit hooks and similar')
+  .option('-c, --check-only', 'check if the version module is up to date')
   .action(function (target) {
     if (typeof target !== 'string' || target === '') {
       console.error('Missing argument: target')
