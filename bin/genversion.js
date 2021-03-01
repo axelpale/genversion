@@ -1,12 +1,12 @@
 #!/usr/bin/env node
 
-var gv = require('../lib/genversion')
-var cv = require('../lib/checkVersion')
-var v = require('../lib/version')
-var program = require('commander')
-var path = require('path')
+const gv = require('../lib/genversion')
+const cv = require('../lib/checkVersion')
+const v = require('../lib/version')
+const program = require('commander')
+const path = require('path')
 
-var increaseVerbosity = function (verb, total) {
+const increaseVerbosity = (verb, total) => {
   return total + 1
 }
 
@@ -19,7 +19,7 @@ program
   .option('-e, --es6', 'use es6 syntax in generated code')
   .option('-p, --source <path>', 'search for package.json along a custom path')
   .option('-c, --check-only', 'check if the version module is up to date')
-  .action(function (target) {
+  .action((target) => {
     if (typeof target !== 'string' || target === '') {
       console.error('Missing argument: target')
       return process.exit(1)
@@ -30,7 +30,7 @@ program
         useSemicolon: program.semi,
         useEs6Syntax: program.es6,
         source: program.source
-      }, function (err, comparisonResult, version) {
+      }, (err, comparisonResult, version) => {
         if (err) {
           console.error(err.toString())
           return process.exit(1)
@@ -61,7 +61,7 @@ program
       program.source = target
     }
 
-    gv.check(target, function (err, doesExist, isByGenversion) {
+    gv.check(target, (err, doesExist, isByGenversion) => {
       if (err) {
         console.error(err.toString())
         return process.exit(1)
@@ -73,7 +73,7 @@ program
             useSemicolon: program.semi,
             useEs6Syntax: program.es6,
             source: program.source
-          }, function (errg, version) {
+          }, (errg, version) => {
             if (errg) {
               console.error(errg)
               return
@@ -98,7 +98,7 @@ program
           useSemicolon: program.semi,
           useEs6Syntax: program.es6,
           source: program.source
-        }, function (errg, version) {
+        }, (errg, version) => {
           if (errg) {
             console.error(errg)
             return
@@ -113,7 +113,7 @@ program
     })
   })
 
-program.on('--help', function () {
+program.on('--help', () => {
   // Additional newline.
   console.log('')
 })
