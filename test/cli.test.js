@@ -93,35 +93,37 @@ describe('genversion cli', () => {
     })
   })
 
-  it('should allow --es6 flag', (done) => {
-    const clit = new CliTest()
+  describe('flags --es6 --semi', () => {
+    it('should allow --es6 flag', (done) => {
+      const clit = new CliTest()
 
-    clit.exec(GENERATE_COMMAND + ' --es6 ' + P, (err, response) => {
-      if (err) {
-        console.error(err, response)
-        return
-      }
+      clit.exec(GENERATE_COMMAND + ' --es6 ' + P, (err, response) => {
+        if (err) {
+          console.error(err, response)
+          return
+        }
 
-      fs.readFileSync(P).toString().should.equal(SIGNATURE +
-        'export const version = \'' + pjson.version + '\'\n')
+        fs.readFileSync(P).toString().should.equal(SIGNATURE +
+          'export const version = \'' + pjson.version + '\'\n')
 
-      return done()
+        return done()
+      })
     })
-  })
 
-  it('should allow --semi and --es6 flag', (done) => {
-    const clit = new CliTest()
+    it('should allow --semi and --es6 flag', (done) => {
+      const clit = new CliTest()
 
-    clit.exec(GENERATE_COMMAND + ' --semi --es6 ' + P, (err, response) => {
-      if (err) {
-        console.error(err, response)
-        return
-      }
+      clit.exec(GENERATE_COMMAND + ' --semi --es6 ' + P, (err, response) => {
+        if (err) {
+          console.error(err, response)
+          return
+        }
 
-      fs.readFileSync(P).toString().should.equal(SIGNATURE +
-        'export const version = \'' + pjson.version + '\';\n')
+        fs.readFileSync(P).toString().should.equal(SIGNATURE +
+          'export const version = \'' + pjson.version + '\';\n')
 
-      return done()
+        return done()
+      })
     })
   })
 
