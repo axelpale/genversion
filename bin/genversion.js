@@ -25,12 +25,14 @@ program
       return process.exit(1)
     }
 
+    const opts = {
+      useSemicolon: program.semi,
+      useEs6Syntax: program.es6,
+      source: program.source
+    }
+
     if (program.checkOnly) {
-      return cv.check(target, {
-        useSemicolon: program.semi,
-        useEs6Syntax: program.es6,
-        source: program.source
-      }, (err, comparisonResult, version) => {
+      return cv.check(target, opts, (err, comparisonResult, version) => {
         if (err) {
           console.error(err.toString())
           return process.exit(1)
@@ -69,11 +71,7 @@ program
 
       if (doesExist) {
         if (isByGenversion) {
-          gv.generate(target, {
-            useSemicolon: program.semi,
-            useEs6Syntax: program.es6,
-            source: program.source
-          }, (errg, version) => {
+          gv.generate(target, opts, (errg, version) => {
             if (errg) {
               console.error(errg)
               return
@@ -94,11 +92,7 @@ program
         }
       } else {
         // OK, file does not exist.
-        gv.generate(target, {
-          useSemicolon: program.semi,
-          useEs6Syntax: program.es6,
-          source: program.source
-        }, (errg, version) => {
+        gv.generate(target, opts, (errg, version) => {
           if (errg) {
             console.error(errg)
             return
