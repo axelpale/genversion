@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<!-- saved from url=(0061)https://demos.akselipalen.com/mojifall-openmoji-emojitracker/ -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0">
+
+  <title>Genversion logo generator</title>
+  <style>
+    html, body { margin: 0; padding: 0; }
+    body { background: white; font-family: sans-serif; }
+    h1 { display: none; }
+    a:link { color: blue; }
+    a:visited { color: blue; }
+    a:hover { color: lightblue; }
+    canvas { display: block; }
+
+    #infobox {
+      position: absolute;
+      top: 1rem;
+      left: 1rem;
+      max-width: 16rem;
+
+      background-color: white;
+      border: 1px solid grey;
+      border-radius: 0.62rem;
+      padding: 0.62rem;
+    }
+
+    .infobox-icon {
+      font-weight: bold;
+      color: #333;
+      margin: -0.62rem;
+      padding: 0.62rem;
+    }
+
+    .infobox-hidden {
+      display: none;
+    }
+
+    .infobox-body p:last-child {
+      margin-bottom: 0;
+    }
+  </style>
+</head>
+<body>
+  <h1 id="title">Logo generator</h1>
+  <canvas id="canvas" width="1275" height="961"></canvas>
+
+  <div class="infobox-icon">?</div>
+  <div class="infobox-body infobox-hidden">
+    <h2>Logo generator</h2>
+
+    <h3>Emojitracker OpenMoji Visualization</h3>
+
+    <p>What you see mimics a real-world use of emojis in <a href="https://twitter.com/">Twitter</a>. Emoji graphics are designed by the awesome <a href="https://openmoji.org/">OpenMoji</a> project. The emoji usage statistics are provided by <a href="https://github.com/mroth/emojitracker">Emojitracker</a>. Animated on <a href="https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API">canvas</a> with <a href="https://www.npmjs.com/package/sprinkler">Sprinkler</a>.</p>
+
+    <p>Fork me in <a href="https://github.com/axelpale/mojifall/tree/emojitracker">GitHub</a>.<br>With ❤ by <a href="http://akselipalen.com/">Axel&nbsp;Pale</a> 2019.</p>
+  </div>
+</div>
+
+<script src="https://unpkg.com/sprinkler@1.9.0/dist/sprinkler.min.js"></script>
+<script>
+const c = document.getElementById('canvas')
+const s = sprinkler.create(c)
+
+var images = [
+  'logo.png'
+]
+
+var stop = s.start(images, {
+  angle: 0,
+  imagesInSecond: 10,
+  burnInSeconds: 30,
+  zMin: 0.1, zMax: 2,
+  rMin: 0, rMax: 2 * Math.PI,
+  aMin: 1, aMax: 1,
+  dxMin: -1, dxMax: 1,
+  dyMin: 200, dyMax: 200,
+  dzMin: 0, dzMax: 0,
+  drMin: -1, drMax: 1,
+  daMin: 0, daMax: 0,
+  ddxMin: 0, ddxMax: 0,
+  ddyMin: 0, ddyMax: 0,
+  ddzMin: 0, ddzMax: 0,
+  ddrMin: 0, ddrMax: 0,
+  ddaMin: 0, ddaMax: 0
+})
+</script>
+
+</body></html>

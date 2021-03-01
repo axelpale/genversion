@@ -206,3 +206,7 @@ To make release, bump the version in `package.json` and run:
 ## License
 
 [MIT](LICENSE)
+
+## Artwork
+
+![a Sprinkler.js rain](doc/logofield.png?raw=true "a Sprinkler.js rain")
