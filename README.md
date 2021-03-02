@@ -210,3 +210,5 @@ To make release, bump the version in `package.json` and run:
 ## Artwork
 
 ![a Sprinkler.js rain](doc/logofield.png?raw=true "a Sprinkler.js rain")
+
+Made with [axelpale/sprinkler](https://github.com/axelpale/sprinkler)
