@@ -209,9 +209,10 @@ To make release, bump the version in `package.json` and run:
 
 ## Artwork
 
-Free Creative Commons Attribution CC-BY artwork (c) Akseli Palén
+Free Creative Commons Attribution CC-BY artwork (c) Genversion, Akseli Palén
 
 ![a Sprinkler.js rain](doc/lightfield.png?raw=true "a Sprinkler.js rain")
-![a Sprinkler.js rain](doc/logofield.png?raw=true "a Sprinkler.js rain")
+![genversion social icon](doc/genversion-social-1280x640.png?raw=true "genversion social icon")
+![too much](doc/logofield.png?raw=true "too much")
 
 Made with [axelpale/sprinkler](https://github.com/axelpale/sprinkler)
