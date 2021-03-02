@@ -213,6 +213,5 @@ Free Creative Commons Attribution CC-BY artwork (c) Akseli Palén
 
 ![a Sprinkler.js rain](doc/lightfield.png?raw=true "a Sprinkler.js rain")
 ![a Sprinkler.js rain](doc/logofield.png?raw=true "a Sprinkler.js rain")
-![a Sprinkler.js rain](doc/pinkfield.png?raw=true "a Sprinkler.js rain")
 
 Made with [axelpale/sprinkler](https://github.com/axelpale/sprinkler)
