@@ -209,6 +209,8 @@ To make release, bump the version in `package.json` and run:
 
 ## Artwork
 
+Free Creative Commons Attribution CC-BY artwork (c) Akseli Palén
+
 ![a Sprinkler.js rain](doc/lightfield.png?raw=true "a Sprinkler.js rain")
 ![a Sprinkler.js rain](doc/logofield.png?raw=true "a Sprinkler.js rain")
 ![a Sprinkler.js rain](doc/pinkfield.png?raw=true "a Sprinkler.js rain")
