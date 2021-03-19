@@ -18,6 +18,7 @@ program
   .option('-e, --es6', 'use es6 syntax in generated code')
   .option('-p, --source <path>', 'search for package.json along a custom path')
   .option('-c, --check-only', 'check if the version module is up to date')
+  .option('-g, --gcsha', 'add git commit sha (ci/cd) to version')
   .action((target) => {
     if (typeof target !== 'string' || target === '') {
       console.error('Missing argument: target')
@@ -27,7 +28,8 @@ program
     const opts = {
       useSemicolon: program.semi,
       useEs6Syntax: program.es6,
-      source: program.source
+      source: program.source,
+      commitSha: program.gcsha
     }
 
     if (program.checkOnly) {
