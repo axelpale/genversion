@@ -8,15 +8,11 @@ const path = require('path')
 // Setup
 const program = commander.program
 
-const increaseVerbosity = (verb, total) => {
-  return total + 1
-}
-
 program
   .version(v, '-V, --version', 'output genversion\'s own version')
   .arguments('<target>')
   .description('Generates a version module at the target filepath.')
-  .option('-v, --verbose', 'increased output verbosity', increaseVerbosity, 0)
+  .option('-v, --verbose', 'increased output verbosity')
   .option('-s, --semi', 'use semicolons in generated code')
   .option('-e, --es6', 'use es6 syntax in generated code')
   .option('-u, --strict', 'add "use strict" in generated code')
@@ -29,7 +25,7 @@ program
     }
 
     // Short alias for verbosity as we use it a lot
-    const verbosity = cliOpts.verbose
+    const verbose = cliOpts.verbose
     // Options for check and generate
     const opts = {
       useSemicolon: cliOpts.semi,
@@ -58,7 +54,7 @@ program
           }
         }
 
-        if (verbosity >= 1) {
+        if (verbose) {
           switch (exitCode) {
             case 0:
               console.log('The version module ' + path.basename(target) +
@@ -100,7 +96,7 @@ program
               return
             }
 
-            if (verbosity >= 1) {
+            if (verbose) {
               console.log('Version module ' + path.basename(target) +
                 ' was successfully updated to ' + version)
             }
@@ -121,7 +117,7 @@ program
             return
           }
 
-          if (verbosity >= 1) {
+          if (verbose) {
             console.log('Version module ' + path.basename(target) +
               ' was successfully generated with version ' + version)
           }

@@ -313,8 +313,8 @@ describe('genversion cli', () => {
       })
     })
 
-    // TODO cannot test verbosity due to annoying shortcoming in
-    // TODO command-line-test, where stdout and stderr become nulls
+    // TODO cannot test verbosity with check-only due to annoying shortcoming
+    // TODO in command-line-test, where stdout and stderr become nulls
     // TODO if exit code other than 0
     // it('should have verbose output', done => {
     //   const clit = new CliTest()
