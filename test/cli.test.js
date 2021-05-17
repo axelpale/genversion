@@ -93,7 +93,7 @@ describe('genversion cli', () => {
     })
   })
 
-  describe('flags --es6 --semi --strict', () => {
+  describe('flags --es6 --semi --double --strict', () => {
     it('should allow --es6 flag', (done) => {
       const clit = new CliTest()
 
@@ -127,6 +127,22 @@ describe('genversion cli', () => {
       })
     })
 
+    it('should allow --double flag', (done) => {
+      const clit = new CliTest()
+
+      clit.exec(GENERATE_COMMAND + ' --double ' + P, (err, response) => {
+        if (err) {
+          console.error(err, response)
+          return
+        }
+
+        fs.readFileSync(P).toString().should.equal(SIGNATURE +
+          'module.exports = "' + pjson.version + '"\n')
+
+        return done()
+      })
+    })
+
     it('should allow --semi and --strict flag', (done) => {
       const clit = new CliTest()
 
@@ -155,6 +171,25 @@ describe('genversion cli', () => {
 
         fs.readFileSync(P).toString().should.equal(SIGNATURE +
           'export const version = \'' + pjson.version + '\';\n')
+
+        return done()
+      })
+    })
+
+    it('should allow -ud flags', (done) => {
+      const clit = new CliTest()
+
+      clit.exec(GENERATE_COMMAND + ' -ud ' + P, (err, response) => {
+        if (err) {
+          console.error(err, response)
+          return
+        }
+
+        fs.readFileSync(P).toString().should.equal(
+          SIGNATURE +
+          '"use strict"\n\n' +
+          'module.exports = "' + pjson.version + '"\n'
+        )
 
         return done()
       })

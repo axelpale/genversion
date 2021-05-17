@@ -14,6 +14,7 @@ program
   .description('Generates a version module at the target filepath.')
   .option('-v, --verbose', 'increased output verbosity')
   .option('-s, --semi', 'use semicolons in generated code')
+  .option('-d, --double', 'use double quotes in generated code')
   .option('-e, --es6', 'use es6 syntax in generated code')
   .option('-u, --strict', 'add "use strict" in generated code')
   .option('-p, --source <path>', 'search for package.json along a custom path')
@@ -29,6 +30,7 @@ program
     // Options for check and generate
     const opts = {
       useSemicolon: cliOpts.semi,
+      useDoubleQuotes: cliOpts.double,
       useEs6Syntax: cliOpts.es6,
       useStrict: cliOpts.strict,
       source: cliOpts.source

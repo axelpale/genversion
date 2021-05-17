@@ -83,6 +83,7 @@ Directly from `$ genversion --help`:
       -V, --version        output genversion's own version
       -v, --verbose        increased output verbosity
       -s, --semi           use semicolons in generated code
+      -d, --double         use double quotes in generated code
       -e, --es6            use es6 syntax in generated code
       -u, --strict         add "use strict" in generated code
       -p, --source <path>  search for package.json along a custom path
@@ -96,6 +97,10 @@ Output the genversion's own version number.
 ### -s, --semi
 
 End each generated line of code with a semicolon as required by some style guides.
+
+### -d, --double
+
+Use double quotes `"` instead of single quotes `'` as required by some style guides.
 
 ### -e, --es6
 
@@ -140,6 +145,7 @@ Check if it is possible to generate the version module into `targetPath`.
 - *opts:* optional options. Available keys are:
   - *source:* optional string. An absolute or relative path to a file or directory. Genversion searches for the source package.json along this path. Defaults to the value of `targetPath`.
   - *useSemicolon:* optional boolean. Defaults to `false`.
+  - *useDoubleQuotes:* optional boolean. Defaults to `false`.
   - *useEs6Syntax:* optional boolean. Defaults to `false`.
 - *callback:* function (err, doesExist, isByGenversion, isUpToDate), where:
   - *doesExist:* boolean. True if a file at targetPath already exists.
@@ -170,6 +176,7 @@ Read the version property from the nearest `package.json` along the `targetPath`
 - *opts:* optional options. Available keys are:
   - *source:* optional string. An absolute or relative path to a file or directory. Genversion searches for the source package.json along this path. Defaults to the value of `targetPath`.
   - *useSemicolon:* optional boolean. Defaults to `false`.
+  - *useDoubleQuotes:* optional boolean. Defaults to `false`.
   - *useEs6Syntax:* optional boolean. Defaults to `false`.
   - *useStrict:* optional boolean. Defaults to `false`.
 - *callback:* function (err, version). Parameter *version* is the version string read from `package.json`. Parameter *err* is non-null if `package.json` cannot be found, its version is not a string, or writing the module fails.
@@ -240,6 +247,7 @@ To configure VSCode debugger, create a file `.vscode/launch.json` with the follo
         "--check-only",
         "--es6",
         "--semi",
+        "--double",
         "--strict",
         "--verbose",
         "target.js"
