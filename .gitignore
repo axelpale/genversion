@@ -33,6 +33,6 @@ package-lock.json
 # Users Environment Variables
 .lock-wscript
 
-# OS X Related
+# OS Related
 *.DS_Store
 .idea

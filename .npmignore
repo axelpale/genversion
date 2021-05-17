@@ -1,2 +1,6 @@
 /doc
 /test
+
+.DS_Store
+.gitignore
+package-lock.json
