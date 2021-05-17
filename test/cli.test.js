@@ -120,7 +120,7 @@ describe('genversion cli', () => {
         }
 
         fs.readFileSync(P).toString().should.equal(SIGNATURE +
-          "'use strict'\n\n" +
+          '\'use strict\'\n\n' +
           'module.exports = \'' + pjson.version + '\'\n')
 
         return done()
@@ -153,7 +153,7 @@ describe('genversion cli', () => {
         }
 
         fs.readFileSync(P).toString().should.equal(SIGNATURE +
-          "'use strict';\n\n" +
+          '\'use strict\';\n\n' +
           'module.exports = \'' + pjson.version + '\';\n')
 
         return done()
@@ -205,7 +205,7 @@ describe('genversion cli', () => {
         }
 
         fs.readFileSync(P).toString().should.equal(SIGNATURE +
-            "'use strict';\n\n" +
+            '\'use strict\';\n\n' +
             'export const version = \'' + pjson.version + '\';\n')
 
         return done()
