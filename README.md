@@ -202,6 +202,35 @@ To make release, bump the version in `package.json` and run:
 
     $ npm run release
 
+### Visual Studio Code integration
+
+To configure VSCode debugger, create a file `.vscode/launch.json` with the following contents:
+
+```
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Launch Program",
+      "skipFiles": [
+        "<node_internals>/**"
+      ],
+      "program": "${workspaceFolder}/bin/genversion.js",
+      "args": [
+        "--check-only",
+        "--es6",
+        "--semi",
+        "--strict",
+        "--verbose",
+        "target.js"
+      ]
+    }
+  ]
+}
+```
+
 
 ## License
 
