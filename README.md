@@ -93,9 +93,21 @@ Directly from `$ genversion --help`:
 
 Output the genversion's own version number.
 
+### -s, --semi
+
+End each generated line of code with a semicolon as required by some style guides.
+
+### -e, --es6
+
+Use ECMAScript 6 `export const` statement instead of `module.exports` in the generated code.
+
 ### -u, --strict
 
 Prepend each generated file with `'use strict'` as required by some style guides.
+
+### -p, --source <path>
+
+Search for the package.json along a custom path up to the system root. Defaults to the target filepath.
 
 ### -c, --check-only
 
