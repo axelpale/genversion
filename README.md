@@ -4,7 +4,7 @@
 
 ![Logo](doc/logo.png?raw=true "Abracadabra...and behold!")
 
-So you want `yourmodule.version` to follow the version in package.json but are tired of updating it manually every time the version changes? On server side, you could just `require('package.json').version` but on client side however, that would expose the versions of your dependencies and possibly other sensitive data too, so [it is usually a naughty thing to do](https://stackoverflow.com/a/10855054/638546)! How to import only the version? Genversion to the rescue!
+So you want `yourmodule.version` to follow the version in package.json but are tired of updating it manually every time the version changes? On server side, you just `require('package.json').version`. On the client side however, that would expose the versions of your dependencies and possibly other sensitive data too, so [it is usually a naughty thing to do](https://stackoverflow.com/a/10855054/638546)! How to import only the version? Genversion to the rescue!
 
 ## Try it out
 
