@@ -2,16 +2,19 @@
 
 const gv = require('../lib/genversion')
 const v = require('../lib/version')
-const program = require('commander')
+const commander = require('commander')
 const path = require('path')
+
+// Setup
+const program = commander.program
 
 const increaseVerbosity = (verb, total) => {
   return total + 1
 }
 
 program
-  .version(v)
-  .usage('[options] <target>')
+  .version(v, '-V, --version', 'output genversion\'s own version')
+  .arguments('<target>')
   .description('Generates a version module at the target filepath.')
   .option('-v, --verbose', 'increased output verbosity', increaseVerbosity, 0)
   .option('-s, --semi', 'use semicolons in generated code')
@@ -19,20 +22,23 @@ program
   .option('-u, --strict', 'use "use strict" in generated code')
   .option('-p, --source <path>', 'search for package.json along a custom path')
   .option('-c, --check-only', 'check if the version module is up to date')
-  .action((target) => {
+  .action((target, cliOpts) => {
     if (typeof target !== 'string' || target === '') {
       console.error('Missing argument: target')
       return process.exit(1)
     }
 
+    // Short alias for verbosity as we use it a lot
+    const verbosity = cliOpts.verbose
+    // Options for check and generate
     const opts = {
-      useSemicolon: program.semi,
-      useEs6Syntax: program.es6,
-      useStrict: program.strict,
-      source: program.source
+      useSemicolon: cliOpts.semi,
+      useEs6Syntax: cliOpts.es6,
+      useStrict: cliOpts.strict,
+      source: cliOpts.source
     }
 
-    if (program.checkOnly) {
+    if (cliOpts.checkOnly) {
       return gv.check(target, opts, (err, doesExist, isByGv, isUpToDate) => {
         if (err) {
           console.error(err.toString())
@@ -52,7 +58,7 @@ program
           }
         }
 
-        if (program.verbose >= 1) {
+        if (verbosity >= 1) {
           switch (exitCode) {
             case 0:
               console.log('The version module ' + path.basename(target) +
@@ -76,8 +82,8 @@ program
     }
 
     // A source path along to search for the package.json
-    if (typeof program.source !== 'string' || program.source === '') {
-      program.source = target
+    if (typeof cliOpts.source !== 'string' || cliOpts.source === '') {
+      cliOpts.source = target
     }
 
     gv.check(target, opts, (err, doesExist, isByGenversion) => {
@@ -94,7 +100,7 @@ program
               return
             }
 
-            if (program.verbose >= 1) {
+            if (verbosity >= 1) {
               console.log('Version module ' + path.basename(target) +
                 ' was successfully updated to ' + version)
             }
@@ -115,7 +121,7 @@ program
             return
           }
 
-          if (program.verbose >= 1) {
+          if (verbosity >= 1) {
             console.log('Version module ' + path.basename(target) +
               ' was successfully generated with version ' + version)
           }
@@ -124,10 +130,8 @@ program
     })
   })
 
-program.on('--help', () => {
-  // Additional newline.
-  console.log('')
-})
+// Additional newline after help
+program.addHelpText('after', ' ')
 
 program.parse(process.argv)
 
