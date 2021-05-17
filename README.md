@@ -200,7 +200,7 @@ Read the version property from the nearest `package.json` along the `targetPath`
 
 ### genversion.version
 
-The version string of genversion module in [semantic versioning](http://semver.org/) format. Generated with genversion itself, of course.
+The version string of the genversion module in [semantic versioning](http://semver.org/) format. Generated with genversion itself, of course ;)
 
 
 ## Projects using genversion
@@ -230,7 +230,7 @@ To make release, bump the version in `package.json` and run:
 
 ### Visual Studio Code integration
 
-To configure VSCode debugger, create a file `.vscode/launch.json` with the following contents:
+To configure VSCode debugger for genversion development, create a file `.vscode/launch.json` with the following contents and adjust to your liking:
 
 ```
 {
@@ -245,11 +245,11 @@ To configure VSCode debugger, create a file `.vscode/launch.json` with the follo
       ],
       "program": "${workspaceFolder}/bin/genversion.js",
       "args": [
-        "--check-only",
-        "--es6",
         "--semi",
         "--double",
+        "--es6",
         "--strict",
+        "--check-only",
         "--verbose",
         "target.js"
       ]
