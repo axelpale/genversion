@@ -34,6 +34,11 @@ program
       source: cliOpts.source
     }
 
+    // A source path along to search for the package.json
+    if (typeof cliOpts.source !== 'string' || cliOpts.source === '') {
+      cliOpts.source = target
+    }
+
     if (cliOpts.checkOnly) {
       return gv.check(target, opts, (err, doesExist, isByGv, isUpToDate) => {
         if (err) {
@@ -75,11 +80,6 @@ program
 
         return process.exit(exitCode)
       })
-    }
-
-    // A source path along to search for the package.json
-    if (typeof cliOpts.source !== 'string' || cliOpts.source === '') {
-      cliOpts.source = target
     }
 
     gv.check(target, opts, (err, doesExist, isByGenversion) => {
