@@ -1,6 +1,6 @@
 {
   "name": "genversion",
-  "version": "2.4.0-alpha",
+  "version": "3.0.0",
   "description": "A command line utility to read version from package.json and attach it into your module as a property",
   "keywords": [
     "release",
