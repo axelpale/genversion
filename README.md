@@ -84,6 +84,7 @@ Directly from `$ genversion --help`:
       -v, --verbose        increased output verbosity
       -s, --semi           use semicolons in generated code
       -e, --es6            use es6 syntax in generated code
+      -u, --strict         use "use strict" in generated code
       -p, --source <path>  search for package.json along a custom path
       -c, --check-only     check if the version module is up to date
       -h, --help           output usage information
@@ -91,6 +92,10 @@ Directly from `$ genversion --help`:
 ### -V, --version
 
 Output the genversion's own version number.
+
+### -u, --strict
+
+Prepend each generated file with `'use strict'` as required by some style guides.
 
 ### -c, --check-only
 
@@ -154,6 +159,7 @@ Read the version property from the nearest `package.json` along the `targetPath`
   - *source:* optional string. An absolute or relative path to a file or directory. Genversion searches for the source package.json along this path. Defaults to the value of `targetPath`.
   - *useSemicolon:* optional boolean. Defaults to `false`.
   - *useEs6Syntax:* optional boolean. Defaults to `false`.
+  - *useStrict:* optional boolean. Defaults to `false`.
 - *callback:* function (err, version). Parameter *version* is the version string read from `package.json`. Parameter *err* is non-null if `package.json` cannot be found, its version is not a string, or writing the module fails.
 
 **Examples:**
