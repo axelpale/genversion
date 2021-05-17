@@ -80,14 +80,14 @@ Directly from `$ genversion --help`:
     Generates a version module at the target filepath.
 
     Options:
-      -V, --version        output the version number
+      -V, --version        output genversion's own version
       -v, --verbose        increased output verbosity
       -s, --semi           use semicolons in generated code
       -e, --es6            use es6 syntax in generated code
-      -u, --strict         use "use strict" in generated code
+      -u, --strict         add "use strict" in generated code
       -p, --source <path>  search for package.json along a custom path
       -c, --check-only     check if the version module is up to date
-      -h, --help           output usage information
+      -h, --help           display help for command
 
 ### -V, --version
 
