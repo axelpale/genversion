@@ -16,6 +16,7 @@ program
   .option('-v, --verbose', 'increased output verbosity', increaseVerbosity, 0)
   .option('-s, --semi', 'use semicolons in generated code')
   .option('-e, --es6', 'use es6 syntax in generated code')
+  .option('-u, --strict', 'use "use strict" in generated code')
   .option('-p, --source <path>', 'search for package.json along a custom path')
   .option('-c, --check-only', 'check if the version module is up to date')
   .action((target) => {
@@ -27,6 +28,7 @@ program
     const opts = {
       useSemicolon: program.semi,
       useEs6Syntax: program.es6,
+      useStrict: program.strict,
       source: program.source
     }
 
