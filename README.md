@@ -225,15 +225,18 @@ Do you use genversion in your project? We are happy to mention it in the list. J
 - [package-json-versionify](https://github.com/nolanlawson/package-json-versionify) for browserify builds
 
 
-## For developers
+## Contribute
+
+Pull requests and [bug reports](https://github.com/axelpale/genversion/issues) are highly appreciated. Please test your contribution with the following scripts:
 
 Run test suite:
 
     $ npm run test
 
-To make release, bump the version in `package.json` and run:
+Run only linter:
 
-    $ npm run release
+    $ npm run lint
+
 
 ### Visual Studio Code integration
 
