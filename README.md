@@ -1,6 +1,8 @@
 # genversion
 
-[![npm version](https://badge.fury.io/js/genversion.svg)](https://www.npmjs.com/package/genversion)
+[![npm version](https://img.shields.io/npm/v/genversion?color=green)](https://www.npmjs.com/package/genversion)
+[![license](https://img.shields.io/npm/l/genversion)](#license)
+[![npm downloads](https://img.shields.io/npm/dm/genversion?color=green)](https://www.npmjs.com/package/genversion)
 
 ![Logo](doc/logo.png?raw=true "Abracadabra...and behold!")
 
