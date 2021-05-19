@@ -6,7 +6,8 @@
 
 ![Logo](doc/logo.png?raw=true "Abracadabra...and behold!")
 
-So you want `yourmodule.version` to follow the version in package.json but are tired of updating it manually every time the version changes? On server side, you just `require('package.json').version`. On the client side however, that would expose the versions of your dependencies and possibly other sensitive data too, so [it is usually a naughty thing to do](https://stackoverflow.com/a/10855054/638546)! How to import only the version? Genversion to the rescue!
+So you want `yourmodule.version` to follow the version in package.json but are tired of updating it manually every time the version changes? On the server side, you just `require('./package.json').version` or `import { version } from './package.json'`. **However** on the client side, that would bundle the whole package.json thus exposing the versions of your dependencies and possibly other sensitive data too. [It is usually a naughty thing to do!](https://stackoverflow.com/a/10855054/638546) How to import only the version? Genversion to the rescue!
+
 [[Try it out](#try-it-out)] [[Integrate to your build]()] [[Command line API](#command-line-api)] [[Node API](#node-api)] [[Contribute](#contribute)]
 
 > YES!!! This is the right answer. Nobody should be shipping their package.json file with their app.
