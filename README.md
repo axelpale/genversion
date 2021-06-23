@@ -8,7 +8,7 @@
 
 So you want `yourmodule.version` to follow the version in package.json but are tired of updating it manually every time the version changes? Could you just `require('./package.json').version` or `import { version } from './package.json'`? That works **but** for your client side apps, that would bundle the whole package.json and thus expose the versions of your dependencies and possibly other sensitive data too. [It is usually a naughty thing to do!](https://stackoverflow.com/a/10855054/638546) How to import only the version? Genversion to the rescue!
 
-[[Try it out](#try-it-out)] [[Integrate to your build]()] [[Command line API](#command-line-api)] [[Node API](#node-api)] [[Contribute](#contribute)]
+[Try it out](#try-it-out) – [Integrate to your build](#integrate-to-your-build) – [Command line API](#command-line-api) – [Node API](#node-api) – [Contribute](#contribute) – [Artwork](#artwork)
 
 > YES!!! This is the right answer. Nobody should be shipping their package.json file with their app.
 >
@@ -279,7 +279,9 @@ To configure VSCode debugger for genversion development, create a file `.vscode/
 Free Creative Commons Attribution CC-BY artwork (c) Akseli Palén, Tarina Palén
 
 ![genversion logo with stars](doc/star-rain-banner-with-logo.png?raw=true "genversion logo with stars")
+
 ![genversion social icon](doc/genversion-social-1280x640.png?raw=true "genversion social icon")
+
 ![genversion code with stars](doc/star-rain-banner-with-code.png?raw=true "genversion logo with code")
 
 The star pattern is made with [axelpale/sprinkler](https://github.com/axelpale/sprinkler)
