@@ -5,6 +5,7 @@
   "keywords": [
     "release",
     "version",
+    "tag",
     "build",
     "check",
     "automation",
@@ -14,6 +15,7 @@
     "development",
     "dev",
     "generator",
+    "bundle",
     "cli",
     "es6",
     "es2015"
