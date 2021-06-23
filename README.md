@@ -276,10 +276,10 @@ To configure VSCode debugger for genversion development, create a file `.vscode/
 
 ## Artwork
 
-Free Creative Commons Attribution CC-BY artwork (c) Genversion, Akseli Palén
+Free Creative Commons Attribution CC-BY artwork (c) Akseli Palén, Tarina Palén
 
-![a Sprinkler.js rain](doc/lightfield.png?raw=true "a Sprinkler.js rain")
+![genversion logo with stars](doc/star-rain-banner-with-logo.png?raw=true "genversion logo with stars")
 ![genversion social icon](doc/genversion-social-1280x640.png?raw=true "genversion social icon")
-![too much](doc/logofield.png?raw=true "too much")
+![genversion code with stars](doc/star-rain-banner-with-code.png?raw=true "genversion logo with code")
 
-Made with [axelpale/sprinkler](https://github.com/axelpale/sprinkler)
+The star pattern is made with [axelpale/sprinkler](https://github.com/axelpale/sprinkler)
