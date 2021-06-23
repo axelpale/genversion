@@ -38,7 +38,7 @@
   },
   "devDependencies": {
     "command-line-test": "^1.0.10",
-    "eslint": "^7.26.0",
+    "eslint": "^7.29.0",
     "fs-extra": "^10.0.0",
     "mocha": "^8.4.0",
     "should": "^13.1.0",
