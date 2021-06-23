@@ -1,0 +1,99 @@
+<html>
+  <head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Genversion</title>
+    <style>
+      #sky {
+        background: white; /* #09090b; */
+        width: 100%; height: 100%;
+      }
+      body {
+        margin: 0;
+        height: 100%;
+      }
+      html {
+        height: 100%;
+      }
+
+      #infobox {
+        position: absolute;
+        top: 1rem;
+        left: 1rem;
+        max-width: 16rem;
+
+        background-color: rgba(255, 255, 255, 0.5);
+        border: 1px solid grey;
+        border-radius: 0.62rem;
+        padding: 0.62rem;
+      }
+
+      .infobox-icon {
+        font-weight: bold;
+        color: #333;
+        margin: -0.62rem;
+        padding: 0.62rem;
+        text-align: right;
+      }
+
+      .infobox-hidden {
+        display: none;
+      }
+
+      .infobox-body p:last-child {
+        margin-bottom: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="sky" width="640" height="640"></canvas>
+    <div id="infobox">
+      <div class="infobox-body infobox-hidden">
+        <h2 style="margin-top: 0">Genversion</h2>
+
+          <p>Animated on
+          <a href="https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API">canvas</a> with
+          <a href="https://www.npmjs.com/package/sprinkler">Sprinkler</a>.</p>
+
+      </div>
+      <div class="infobox-icon">?</div>
+    </div>
+    <script src="https://unpkg.com/sprinkler@1.12.0/dist/sprinkler.min.js"></script>
+    <script>
+      const c = document.getElementById('sky')
+      const s = sprinkler.create(c, {
+        responsive: true
+      })
+
+      // Replace with your images
+      const images = [
+        'star_opt.png'
+      ]
+
+      // Start the animation
+      s.start(images, {
+        imagesInSecond: 5,         // Particles per second
+        burnInSeconds: 30,          // Prefill time
+        zMin: 0.1, zMax: 0.5,         // Scale range
+        rMin: 0.1 * Math.PI, rMax: 2 * Math.PI, // Rotation range
+        aMin: 1, aMax: 1,           // Alpha/opacity range
+        dxMin: 0, dxMax: 0,        // Horizontal speed
+        dyMin: 50, dyMax: 100,     // Vertical speed
+        dzMin: 0, dzMax: 0,         // Growing speed
+        drMin: -1, drMax: 1,        // Rotation speed
+        daMin: 0, daMax: 0,         // Alpha speed
+        ddrMin: 0, ddrMax: 0
+        // See docs for advanced animation parameters
+      })
+
+      // infobox open - close
+      const infobox = document.getElementById('infobox')
+      const infoicon = infobox.querySelector('.infobox-icon')
+      const infobody = infobox.querySelector('.infobox-body')
+
+      infoicon.addEventListener('click', ev => {
+        infobody.classList.toggle('infobox-hidden')
+      })
+    </script>
+  </body>
+</html>
