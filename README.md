@@ -124,12 +124,12 @@ Search for the package.json along a custom path up to the system root. Defaults 
 
 ### -c, --check-only
 
-When `--check-only` flag is used, only the existence and validity of the version module is checked. No files are generated. The flag is useful for pre-commit hooks and similar.
+When `--check-only` flag is used, only the existence and validity of the version module is checked. No files are generated or modified. The flag is useful for pre-commit hooks and similar.
 
 The command exits with exit code:
-  - `0` if the version module exits and does need a refresh.
+  - `0` if the version module exists and does not need a refresh.
   - `1` if the version module does not exist at all.
-  - `2` if the version module exists but needs a refresh.
+  - `2` if the version module exists but needs a refresh. This exit code can occur after version increment or when the version module formatting has changed. Also, if a version module exists but is not made by genversion, the command will exit with this exit code.
 
 The command does not produce any output by default. Use `-v` to increase its verbosity.
 
