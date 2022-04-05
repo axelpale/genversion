@@ -73,7 +73,7 @@ program
               break
             case 2:
               console.error('The version module ' + path.basename(target) +
-                ' has outdated content.')
+                ' has outdated or unknown content.')
               break
             default:
               throw new Error('Unknown exitCode: ' + exitCode)
