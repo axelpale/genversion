@@ -25,11 +25,11 @@ describe('genversion api', () => {
   })
 
   it('should detect missing version file', (done) => {
-    gv.check('version.js', (err, doesExist, isByGenversion) => {
+    gv.check('version.js', (err, doesExist, isByGenversion, isUpToDate) => {
       should.equal(err, null)
       doesExist.should.equal(false)
       isByGenversion.should.equal(false)
-
+      isUpToDate.should.equal(false)
       return done()
     })
   })
