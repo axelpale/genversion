@@ -8,11 +8,9 @@
 
 So you want `yourmodule.version` to follow the version in package.json but are tired of updating it manually every time the version changes? Could you just `require('./package.json').version` or `import { version } from './package.json'`? That works **but** for your client side apps, that would bundle the whole package.json and thus expose the versions of your dependencies and possibly other sensitive data too. [It is usually a naughty thing to do!](https://stackoverflow.com/a/10855054/638546) How to import only the version? Genversion to the rescue!
 
-[Try it out](#try-it-out) – [Integrate to your build](#integrate-to-your-build) – [Command line API](#command-line-api) – [Node API](#node-api) – [Contribute](#contribute) – [Artwork](#artwork)
+> YES!!! This is the right answer. Nobody should be shipping their package.json file with their app. &mdash; <cite><a href="https://stackoverflow.com/questions/9153571/is-there-a-way-to-get-version-from-package-json-in-nodejs-code/10855054#comment119380617_46582508" target="_blank">Eric Jorgensen</a></cite>
 
-> YES!!! This is the right answer. Nobody should be shipping their package.json file with their app.
->
-> &mdash; <cite>Eric Jorgensen</cite>
+[Try it out](#try-it-out) – [Integrate to your build](#integrate-to-your-build) – [Command line API](#command-line-api) – [Node API](#node-api) – [Contribute](#contribute) – [Artwork](#artwork)
 
 ## Try it out
 
@@ -37,7 +35,7 @@ Use [flags](#command-line-api) to match your coding style. `$ genversion --es6 -
     > const gv = require('genversion')
     > gv.generate('lib/version.js', { useSemicolon: true }, (err) => { ... })
 
-By default, genversion reads the version from the `package.json` nearest to the target `version.js`. In case your project contains multiple `package.json` files along the target path you can specify the one with `--source <path>` parameter. See API documentation below for details.
+See API documentation below for details.
 
 ## Integrate to your build
 
@@ -69,7 +67,9 @@ Then, let us integrate genversion into your build task.
       "build": "genversion lib/version.js && other build stuff"
     }
 
-The target path is given as the first argument. If the file already exists and has been previously created by genversion, it is replaced with the new one.
+The target path is given as the first argument. If the file already exists and has been previously created by genversion, it is replaced with the new one. If the file exists but is not by genversion, you will see a warning and the file stays untouched.
+
+Genversion reads the version from the `package.json` nearest to the target path. In case your project contains multiple `package.json` files along the path you can specify the one with `--source <path>` parameter.
 
 Finished! Now your module has a version property that matches with package.json and is updated every time you build the project.
 
@@ -77,7 +77,7 @@ Finished! Now your module has a version property that matches with package.json 
     > yourmodule.version
     '1.2.3'
 
-Great! Having a version property in your module is very convenient for debugging. More than once we have had the need to painstakingly debug a module, just to find out that it was a cached old version that caused the error. An inspectable version property would have helped a big time.
+Great! Having a version property in your module is very convenient for debugging. More than once we have painstakingly debugged a module, just to find out that it was a cached old version that caused the error. An inspectable version property would have helped a big time.
 
 
 ## Command line API
@@ -127,12 +127,12 @@ Search for the package.json along a custom path up to the system root. Defaults 
 
 When `--check-only` flag is used, only the existence and validity of the version module is checked. No files are generated or modified. The flag is useful for pre-commit hooks and similar.
 
-The command exits with exit code:
-  - `0` if the version module exists and does not need a refresh.
-  - `1` if the version module does not exist at all.
-  - `2` if the version module exists but needs a refresh. This exit code can occur after version increment or when the version module formatting has changed. Also, if a version module exists but is not made by genversion, the command will exit with this exit code.
+The command exits with the exit code:
+  - `0` if the version module is found and is exactly as freshly generated.
+  - `1` if the version module cannot be found.
+  - `2` if the version module is found but needs a refresh. This exit code can occur after version increment or when the version module formatting has changed. Also, if a version module is found but is not made by genversion, the command will exit with this exit code.
 
-The command does not produce any output by default. Use `-v` to increase its verbosity.
+The command with `--check-only` does not produce any output by default. Use `-v` to increase its verbosity.
 
 
 ## Node API
@@ -189,7 +189,7 @@ Read the version property from the nearest `package.json` along the `targetPath`
   - *useDoubleQuotes:* optional boolean. Defaults to `false`.
   - *useEs6Syntax:* optional boolean. Defaults to `false`.
   - *useStrict:* optional boolean. Defaults to `false`.
-- *callback:* function (err, version). Parameter *version* is the version string read from `package.json`. Parameter *err* is non-null if `package.json` cannot be found, its version is not a string, or writing the module fails.
+- *callback:* function (err, version). Parameter *version* is the version string read from `package.json`. Parameter *err* is non-null if `package.json` cannot be found, its version is not a string, or writing the version module fails.
 
 **Examples:**
 
@@ -278,9 +278,10 @@ To configure VSCode debugger for genversion development, create a file `.vscode/
 
 [MIT](LICENSE)
 
+
 ## Artwork
 
-Free Creative Commons Attribution CC-BY artwork (c) Akseli Palén, Tarina Palén
+Free [Creative Commons Attribution CC-BY](https://creativecommons.org/licenses/by/4.0/) artwork (c) Akseli Palén, Tarina Palén. The star pattern is made with [Sprinkler.js](https://github.com/axelpale/sprinkler). The font is [Bitstream Vera Sans Mono](https://en.wikipedia.org/wiki/Bitstream_Vera).
 
 ![genversion logo with stars](doc/star-rain-banner-with-logo.png?raw=true "genversion logo with stars")
 
@@ -288,4 +289,4 @@ Free Creative Commons Attribution CC-BY artwork (c) Akseli Palén, Tarina Palén
 
 ![genversion code with stars](doc/star-rain-banner-with-code.png?raw=true "genversion logo with code")
 
-The star pattern is made with [axelpale/sprinkler](https://github.com/axelpale/sprinkler)
+> We are made of starstuff. &mdash; Carl Sagan
