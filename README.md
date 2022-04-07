@@ -225,6 +225,9 @@ Do you use genversion in your project? We are happy to mention it in the list. J
 
 - [versiony](https://github.com/ciena-blueplanet/versiony) for version increments
 - [package-json-versionify](https://github.com/nolanlawson/package-json-versionify) for browserify builds
+- [browserify-versionify](https://www.npmjs.com/package/browserify-versionify) for browserify builds
+- [semantic-release](https://github.com/semantic-release/semantic-release) for automatic version increments
+- [semver](https://github.com/npm/node-semver) for semantic version formatting
 
 
 ## Contribute
