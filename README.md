@@ -5,6 +5,7 @@
 [![npm version](https://img.shields.io/npm/v/genversion?color=green)](https://www.npmjs.com/package/genversion)
 [![license](https://img.shields.io/npm/l/genversion)](#license)
 [![npm downloads](https://img.shields.io/npm/dm/genversion?color=green)](https://www.npmjs.com/package/genversion)
+[![Node Version](https://img.shields.io/node/v/genversion.svg)](https://https://github.com/axelpale/genversion)
 
 So you want `yourmodule.version` to follow the version in package.json but are tired of updating it manually every time the version changes? Could you just `require('./package.json').version` or `import { version } from './package.json'`? That works **but** for your client side apps, that would bundle the whole package.json and thus expose the versions of your dependencies and possibly other sensitive data too. [It is usually a naughty thing to do!](https://stackoverflow.com/a/10855054/638546) How to import only the version? Genversion to the rescue!
 
