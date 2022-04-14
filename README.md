@@ -285,10 +285,10 @@ To configure VSCode debugger for genversion development, create a file `.vscode/
 
 Free [Creative Commons Attribution CC-BY](https://creativecommons.org/licenses/by/4.0/) artwork (c) Akseli Palén, Tarina Palén. The star pattern is made with [Sprinkler.js](https://github.com/axelpale/sprinkler). The font is [Bitstream Vera Sans Mono](https://en.wikipedia.org/wiki/Bitstream_Vera).
 
-![genversion logo with stars](doc/star-rain-banner-with-logo.png?raw=true "genversion logo with stars")
+![genversion logo with stars](doc/2022-04-12_genversion_star_banner_headline_960x430_opt.png?raw=true "genversion logo with stars")
 
-![genversion social icon](doc/genversion-social-1280x640.png?raw=true "genversion social icon")
+![genversion social icon](doc/2022-04-06_genversion_white_banner_code_960x430_opt.png?raw=true "genversion social icon")
 
-![genversion code with stars](doc/star-rain-banner-with-code.png?raw=true "genversion logo with code")
+![genversion code with stars](doc/2022-04-06_genversion_star_banner_code_960x430_opt.png?raw=true "genversion logo with code")
 
 > We are made of starstuff. &mdash; Carl Sagan
