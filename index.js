@@ -1,4 +1,3 @@
-
 const gv = require('./lib/genversion')
 const v = require('./lib/version')
 
