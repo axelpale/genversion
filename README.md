@@ -234,15 +234,25 @@ Do you use genversion in your project? We are happy to mention it in the list. J
 
 ## Contribute
 
-Pull requests and [bug reports](https://github.com/axelpale/genversion/issues) are highly appreciated. Please test your contribution with the following scripts:
+Pull requests and [bug reports](https://github.com/axelpale/genversion/issues) are highly appreciated.
 
-Run test suite:
+Clone the repository:
+
+    $ git clone git@github.com:axelpale/genversion.git
+
+Install development tooling:
+
+    $ cd genversion; npm install
+
+Please test your contribution. Run the test suite:
 
     $ npm run test
 
 Run only linter:
 
     $ npm run lint
+
+Thank you.
 
 
 ### Visual Studio Code integration
