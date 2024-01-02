@@ -15,6 +15,7 @@ program
   .option('-v, --verbose', 'increased output verbosity')
   .option('-s, --semi', 'use semicolons in generated code')
   .option('-d, --double', 'use double quotes in generated code')
+  .option('-b, --backtick', 'use backticks in generated code')
   .option('-e, --es6', 'use es6 syntax in generated code')
   .option('-u, --strict', 'add "use strict" in generated code')
   .option('-p, --source <path>', 'search for package.json along a custom path')
@@ -31,6 +32,7 @@ program
     const opts = {
       useSemicolon: cliOpts.semi,
       useDoubleQuotes: cliOpts.double,
+      useBackticks: cliOpts.backtick,
       useEs6Syntax: cliOpts.es6,
       useStrict: cliOpts.strict,
       source: cliOpts.source

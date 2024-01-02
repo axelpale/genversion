@@ -112,7 +112,7 @@ describe('genversion cli', () => {
     })
   })
 
-  describe('flags --es6 --semi --double --strict', () => {
+  describe('flags --es6 --semi --double --backtick --strict', () => {
     it('should allow --es6 flag', (done) => {
       const clit = new CliTest()
 
@@ -157,6 +157,38 @@ describe('genversion cli', () => {
 
         readTemp().should.equal(SIGNATURE +
           'module.exports = "' + pjson.version + '"\n')
+
+        return done()
+      })
+    })
+
+    it('should allow --backtick flag', (done) => {
+      const clit = new CliTest()
+
+      clit.exec(GENERATE_COMMAND + ' --backtick ' + P, (err, response) => {
+        if (err) {
+          console.error(err, response)
+          return
+        }
+
+        readTemp().should.equal(SIGNATURE +
+          'module.exports = `' + pjson.version + '`\n')
+
+        return done()
+      })
+    })
+
+    it('should have --backtick flag take precedence over --double flag', (done) => {
+      const clit = new CliTest()
+
+      clit.exec(GENERATE_COMMAND + ' --backtick --double ' + P, (err, response) => {
+        if (err) {
+          console.error(err, response)
+          return
+        }
+
+        readTemp().should.equal(SIGNATURE +
+          'module.exports = `' + pjson.version + '`\n')
 
         return done()
       })
