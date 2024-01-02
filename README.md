@@ -1,6 +1,6 @@
 # genversion
 
-![Logo](doc/logo.png?raw=true "Abracadabra...and behold!")
+![Logo](doc/genversion-logo-halo.png?raw=true "Abracadabra...and behold!")
 
 [![Travis build status](https://img.shields.io/travis/com/axelpale/genversion)](https://app.travis-ci.com/github/axelpale/genversion)
 [![npm version](https://img.shields.io/npm/v/genversion?color=green)](https://www.npmjs.com/package/genversion)
