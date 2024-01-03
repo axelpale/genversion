@@ -69,7 +69,7 @@ Then, let us integrate genversion into your build task.
       "build": "genversion lib/version.js && other build stuff"
     }
 
-The target path is given as the first argument. If the file already exists and has been previously created by genversion, it is replaced with the new one. If the file exists but is not by genversion, you will see a warning and the file stays untouched.
+The target path is given as the first argument. If the file already exists and has been previously created by genversion, it is replaced with the new one. If the file exists but is not by genversion, you will see a warning and the file stays untouched unless you use `--force`.
 
 Genversion reads the version from the `package.json` nearest to the target path. In case your project contains multiple `package.json` files along the path you can specify the one with `--source <path>` parameter.
 
@@ -100,6 +100,7 @@ Directly from `$ genversion --help`:
       -u, --strict         add "use strict" in generated code
       -p, --source <path>  search for package.json along a custom path
       -c, --check-only     check if the version module is up to date
+      -f, --force          force file rewrite upon generation
       -h, --help           display help for command
 
 ### -V, --version
@@ -140,6 +141,10 @@ The command exits with the exit code:
   - `2` if the version module is found but needs a refresh. This exit code can occur after version increment or when the version module formatting has changed. Also, if a version module is found but is not made by genversion, the command will exit with this exit code.
 
 The command with `--check-only` does not produce any output by default. Use `-v` to increase its verbosity.
+
+### -f, --force
+
+Force rewrite of possibly pre-existing file at the target path. Otherwise genversion will rewrite the file only if it looks like it was created by genversion.
 
 
 ## Node API

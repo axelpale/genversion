@@ -20,6 +20,7 @@ program
   .option('-u, --strict', 'add "use strict" in generated code')
   .option('-p, --source <path>', 'search for package.json along a custom path')
   .option('-c, --check-only', 'check if the version module is up to date')
+  .option('-f, --force', 'force file rewrite upon generation')
   .action((target, cliOpts) => {
     if (typeof target !== 'string' || target === '') {
       console.error('Missing argument: target')
@@ -35,16 +36,17 @@ program
       useBackticks: cliOpts.backtick,
       useEs6Syntax: cliOpts.es6,
       useStrict: cliOpts.strict,
-      source: cliOpts.source
+      source: cliOpts.source,
+      force: cliOpts.force
     }
 
-    // A source path along to search for the package.json
+    // Default source path from which to search for the package.json.
     if (typeof cliOpts.source !== 'string' || cliOpts.source === '') {
       cliOpts.source = target
     }
 
     if (cliOpts.checkOnly) {
-      return gv.check(target, opts, (err, doesExist, isByGv, isUpToDate) => {
+      gv.check(target, opts, (err, doesExist, isByGv, isUpToDate) => {
         if (err) {
           console.error(err.toString())
           return process.exit(1)
@@ -84,6 +86,8 @@ program
 
         return process.exit(exitCode)
       })
+      // check completed, exit without generation
+      return
     }
 
     gv.check(target, opts, (err, doesExist, isByGenversion) => {
@@ -103,6 +107,24 @@ program
             if (verbose) {
               console.log('Version module ' + path.basename(target) +
                 ' was successfully updated to ' + version)
+            }
+          })
+        } else if (opts.force) {
+          // Forcefully rewrite unknown file.
+          if (verbose) {
+            console.warn('File ' + path.basename(target) +
+              ' will be forcefully overwritten.')
+          }
+
+          gv.generate(target, opts, (errg, version) => {
+            if (errg) {
+              console.error(errg)
+              return
+            }
+
+            if (verbose) {
+              console.log('Version module ' + path.basename(target) +
+                ' was successfully generated with version ' + version)
             }
           })
         } else {

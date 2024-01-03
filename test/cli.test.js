@@ -317,6 +317,33 @@ describe('genversion cli', () => {
     })
   })
 
+  describe('flag --force', () => {
+    it('should generate if unknown file exists', (done) => {
+      // Generate file with unknown signature
+      const INVALID_SIGNATURE = 'foobarcontent'
+      createTemp(INVALID_SIGNATURE)
+
+      const clit = new CliTest()
+
+      clit.exec(GENERATE_COMMAND + ' --force ' + P, (err, response) => {
+        if (err) {
+          console.error(err, response)
+          return
+        }
+
+        // Should not have any output
+        response.stdout.should.equal('')
+        response.stderr.should.equal('')
+
+        // Ensure the file exists and was replaced
+        fs.existsSync(P).should.equal(true)
+        readTemp().should.not.equal(INVALID_SIGNATURE)
+
+        return done()
+      })
+    })
+  })
+
   describe('flag --version', () => {
     it('should show genversion\'s own version', (done) => {
       const clit = new CliTest()
