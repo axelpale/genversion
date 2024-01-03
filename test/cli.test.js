@@ -211,10 +211,10 @@ describe('genversion cli', () => {
       })
     })
 
-    it('should allow --semi and --es6 flag', (done) => {
+    it('should allow --semi and --esm flag', (done) => {
       const clit = new CliTest()
 
-      clit.exec(GENERATE_COMMAND + ' --semi --es6 ' + P, (err, response) => {
+      clit.exec(GENERATE_COMMAND + ' --semi --esm ' + P, (err, response) => {
         if (err) {
           console.error(err, response)
           return

@@ -17,7 +17,8 @@ program
   .option('-s, --semi', 'use semicolons in generated code')
   .option('-d, --double', 'use double quotes in generated code')
   .option('-b, --backtick', 'use backticks in generated code')
-  .option('-e, --es6', 'use ESM exports in generated code')
+  .option('-e, --esm', 'use ESM exports in generated code')
+  .option('    --es6', 'alias for --esm flag')
   .option('-u, --strict', 'add "use strict" in generated code')
   .option('-p, --source <path>', 'search for package.json along a custom path')
   .option('-P, --property <key>', 'select properties; default is "version"')
@@ -43,7 +44,7 @@ program
       useSemicolon: cliOpts.semi,
       useDoubleQuotes: cliOpts.double,
       useBackticks: cliOpts.backtick,
-      useEs6Syntax: cliOpts.es6,
+      useEs6Syntax: cliOpts.es6 || cliOpts.esm,
       useStrict: cliOpts.strict,
       source: cliOpts.source,
       force: cliOpts.force

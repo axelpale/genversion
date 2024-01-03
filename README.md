@@ -96,9 +96,11 @@ Directly from `$ genversion --help`:
       -s, --semi           use semicolons in generated code
       -d, --double         use double quotes in generated code
       -b, --backtick       use backticks in generated code
-      -e, --es6            use es6 syntax in generated code
+      -e, --esm            use ESM exports in generated code
+          --es6            alias for --esm flag
       -u, --strict         add "use strict" in generated code
       -p, --source <path>  search for package.json along a custom path
+      -P, --property <key> select properties; default is "version"
       -c, --check-only     check if the version module is up to date
       -f, --force          force file rewrite upon generation
       -h, --help           display help for command
@@ -119,7 +121,7 @@ Use double quotes `"` instead of single quotes `'` as required by some style gui
 
 Use backticks `` ` `` instead of single `'` or double `"` quotes as required by some style guides.
 
-### -e, --es6
+### -e, --esm, --es6
 
 Use ECMAScript 6 `export const` statement instead of `module.exports` in the generated code.
 
