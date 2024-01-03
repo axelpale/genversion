@@ -16,7 +16,7 @@ program
   .option('-s, --semi', 'use semicolons in generated code')
   .option('-d, --double', 'use double quotes in generated code')
   .option('-b, --backtick', 'use backticks in generated code')
-  .option('-e, --es6', 'use es6 syntax in generated code')
+  .option('-e, --es6', 'use ESM exports in generated code')
   .option('-u, --strict', 'add "use strict" in generated code')
   .option('-p, --source <path>', 'search for package.json along a custom path')
   .option('-c, --check-only', 'check if the version module is up to date')
