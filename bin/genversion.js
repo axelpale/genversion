@@ -2,6 +2,7 @@
 
 const gv = require('../lib/genversion')
 const v = require('../lib/version')
+const csvToArray = require('../lib/csvToArray')
 const commander = require('commander')
 const path = require('path')
 
@@ -19,6 +20,7 @@ program
   .option('-e, --es6', 'use ESM exports in generated code')
   .option('-u, --strict', 'add "use strict" in generated code')
   .option('-p, --source <path>', 'search for package.json along a custom path')
+  .option('-P, --property <key>', 'select properties; default is "version"')
   .option('-c, --check-only', 'check if the version module is up to date')
   .option('-f, --force', 'force file rewrite upon generation')
   .action((target, cliOpts) => {
@@ -27,10 +29,17 @@ program
       return process.exit(1)
     }
 
+    // Read properties. Open comma separated list
+    cliOpts.properties = csvToArray(cliOpts.property)
+    if (cliOpts.properties.length === 0) {
+      cliOpts.properties = ['version']
+    }
+
     // Short alias for verbosity as we use it a lot
     const verbose = cliOpts.verbose
     // Options for check and generate
     const opts = {
+      properties: cliOpts.properties,
       useSemicolon: cliOpts.semi,
       useDoubleQuotes: cliOpts.double,
       useBackticks: cliOpts.backtick,
