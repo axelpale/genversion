@@ -444,4 +444,56 @@ describe('genversion cli', () => {
     //   })
     // })
   })
+
+  describe('flag --property', () => {
+    it('should pick selected property', (done) => {
+      const clit = new CliTest()
+
+      clit.exec(GENERATE_COMMAND + ' --property name ' + P, (err, response) => {
+        if (err) {
+          console.error(err)
+          return
+        }
+
+        readTemp().should.equal(SIGNATURE +
+          'module.exports = \'' + pjson.name + '\'\n')
+
+        return done()
+      })
+    })
+
+    it('should pick multiple properties', (done) => {
+      const clit = new CliTest()
+      const cmd = GENERATE_COMMAND + ' --property name,version ' + P
+      clit.exec(cmd, (err, response) => {
+        if (err) {
+          console.error(err)
+          return
+        }
+
+        readTemp().should.equal(SIGNATURE +
+          'exports.name = \'' + pjson.name + '\'\n' +
+          'exports.version = \'' + pjson.version + '\'\n')
+
+        return done()
+      })
+    })
+
+    it('should not understand multiple property flags', (done) => {
+      const clit = new CliTest()
+      const cmd = GENERATE_COMMAND + ' --property name ' +
+        '--property version --esm ' + P
+      clit.exec(cmd, (err, response) => {
+        if (err) {
+          console.error(err)
+          return
+        }
+
+        readTemp().should.equal(SIGNATURE +
+          'export const version = \'' + pjson.version + '\'\n')
+
+        return done()
+      })
+    })
+  })
 })
