@@ -139,6 +139,10 @@ Prepend each generated file with `'use strict'` as required by some style guides
 
 Search for the package.json along a custom path up to the system root. Defaults to the target filepath.
 
+### -P, --property <key>
+
+Select which property or properties will be picked from package.json and inserted into the module. Specify multiple properties with a comma separated list without spaces, for example `-P name,version`. Note that with two or more properties and without `--esm` flag the module is generated with `exports` instead of `module.exports`.
+
 ### -c, --check-only
 
 When `--check-only` flag is used, only the existence and validity of the version module is checked. No files are generated or modified. The flag is useful for pre-commit hooks and similar.
@@ -205,6 +209,7 @@ Read the version property from the nearest `package.json` along the `targetPath`
 
 - *targetPath:* string. An absolute or relative file path. Relative to `process.cwd()`.
 - *opts:* optional options. Available keys are:
+  - *properties:* optional array of strings. These properties will be picked from `package.json` and rendered. Defaults to `['version']`.
   - *source:* optional string. An absolute or relative path to a file or directory. Genversion searches for the source package.json along this path. Defaults to the value of `targetPath`.
   - *useSemicolon:* optional boolean. Defaults to `false`.
   - *useDoubleQuotes:* optional boolean. Defaults to `false`.
