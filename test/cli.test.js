@@ -496,4 +496,42 @@ describe('genversion cli', () => {
       })
     })
   })
+
+  describe('flag --apply', () => {
+    it('should apply selected property', (done) => {
+      const clit = new CliTest()
+      const cmd = GENERATE_COMMAND + ' --apply name:PKGNAME ' + P
+
+      createTemp('foo\nfooPKGNAMEbar\n')
+      clit.exec(cmd, (err, response) => {
+        if (err) {
+          console.error(err)
+          return
+        }
+
+        readTemp().should.equal('foo\nfoo' + pjson.name + 'bar\n')
+
+        return done()
+      })
+    })
+
+    it('should apply multiple properties', (done) => {
+      const clit = new CliTest()
+      const cmd = GENERATE_COMMAND +
+        ' --source ./test/fixture/package.json' +
+        ' --apply name:PKGNAME,version:PKGVERSION ' + P
+
+      createTemp('foo\nfooPKGNAMEbar\nPKGVERSION\n')
+      clit.exec(cmd, (err, response) => {
+        if (err) {
+          console.error(err)
+          return
+        }
+
+        readTemp().should.equal('foo\nfoogenversion-fixturebar\n0.1.2\n')
+
+        return done()
+      })
+    })
+  })
 })
