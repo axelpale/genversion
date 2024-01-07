@@ -327,8 +327,7 @@ describe('genversion cli', () => {
 
       clit.exec(GENERATE_COMMAND + ' --force ' + P, (err, response) => {
         if (err) {
-          console.error(err, response)
-          return
+          return done(err)
         }
 
         // Should not have any output
@@ -350,8 +349,7 @@ describe('genversion cli', () => {
 
       clit.exec(GENERATE_COMMAND + ' --version', (err, response) => {
         if (err) {
-          console.error(err)
-          return
+          return done(err)
         }
 
         response.stdout.should.equal(pjson.version)
@@ -451,8 +449,7 @@ describe('genversion cli', () => {
 
       clit.exec(GENERATE_COMMAND + ' --property name ' + P, (err, response) => {
         if (err) {
-          console.error(err)
-          return
+          return done(err)
         }
 
         readTemp().should.equal(SIGNATURE +
@@ -467,8 +464,7 @@ describe('genversion cli', () => {
       const cmd = GENERATE_COMMAND + ' --property name,version ' + P
       clit.exec(cmd, (err, response) => {
         if (err) {
-          console.error(err)
-          return
+          return done(err)
         }
 
         readTemp().should.equal(SIGNATURE +
@@ -485,8 +481,7 @@ describe('genversion cli', () => {
         '--property version --esm ' + P
       clit.exec(cmd, (err, response) => {
         if (err) {
-          console.error(err)
-          return
+          return done(err)
         }
 
         readTemp().should.equal(SIGNATURE +
