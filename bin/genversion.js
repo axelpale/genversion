@@ -29,7 +29,8 @@ program
   .action((target, cliOpts) => {
     if (typeof target !== 'string' || target === '') {
       console.error('Missing argument: target')
-      return process.exit(1)
+      process.exitCode = 1
+      return
     }
     // Short alias for basename used a lot in log output
     const targetBase = path.basename(target)
@@ -66,7 +67,8 @@ program
       gv.check(target, opts, (err, doesExist, isByGv, isUpToDate) => {
         if (err) {
           console.error(err.toString())
-          return process.exit(1)
+          process.exitCode = 1
+          return
         }
 
         let exitCode = 1
@@ -101,7 +103,7 @@ program
           }
         }
 
-        return process.exit(exitCode)
+        process.exitCode = exitCode
       })
       // check completed, exit without generation
       return
@@ -110,7 +112,8 @@ program
     gv.check(target, opts, (err, doesExist, isByGenversion) => {
       if (err) {
         console.error(err.toString())
-        return process.exit(1)
+        process.exitCode = 1
+        return
       }
 
       if (doesExist) {
@@ -118,6 +121,7 @@ program
           gv.generate(target, opts, (errg, version) => {
             if (errg) {
               console.error(errg)
+              process.exitCode = 1
               return
             }
 
@@ -136,6 +140,7 @@ program
           gv.generate(target, opts, (errg, version) => {
             if (errg) {
               console.error(errg)
+              process.exitCode = 1
               return
             }
 
@@ -157,6 +162,7 @@ program
         gv.generate(target, opts, (errg, version) => {
           if (errg) {
             console.error(errg)
+            process.exitCode = 1
             return
           }
 
