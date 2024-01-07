@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 
-const gv = require('../lib/genversion')
-const v = require('../lib/version')
+const gv = require('../index')
 const csvToArray = require('../lib/csvToArray')
 const commander = require('commander')
 const path = require('path')
@@ -10,7 +9,7 @@ const path = require('path')
 const program = commander.program
 
 program
-  .version(v, '-V, --version', 'output genversion\'s own version')
+  .version(gv.version, '-V, --version', 'output genversion\'s own version')
   .arguments('<target>')
   .description('Generates a version module at the target filepath.')
   .option('-v, --verbose', 'increased output verbosity')
