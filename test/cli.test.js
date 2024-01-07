@@ -385,7 +385,7 @@ describe('genversion cli', () => {
       })
     })
 
-    it('should detect missing file', done => {
+    it('should detect missing file', (done) => {
       const clit = new CliTest()
 
       clit.exec(GENERATE_COMMAND + ' --check-only ' + P, (err, response) => {
@@ -403,7 +403,7 @@ describe('genversion cli', () => {
       })
     })
 
-    it('should detect a standard change', done => {
+    it('should detect a standard change', (done) => {
       const clit = new CliTest()
 
       clit.exec(GENERATE_COMMAND + ' ' + P, (err) => {
@@ -424,23 +424,20 @@ describe('genversion cli', () => {
       })
     })
 
-    // TODO cannot test verbosity with check-only due to annoying shortcoming
-    // TODO in command-line-test, where stdout and stderr become nulls
-    // TODO if exit code other than 0
-    // it('should have verbose output', done => {
-    //   const clit = new CliTest()
-    //
-    //   const FLAGS = ' --verbose --check-only '
-    //   clit.exec(GENERATE_COMMAND + FLAGS + P, (err, response) => {
-    //     if (err) {
-    //       return done(err)
-    //     }
-    //
-    //     // File exists but has incorrect syntax
-    //     response.stdout.should.include('could not be found')
-    //     return done()
-    //   })
-    // })
+    it('should have verbose output', (done) => {
+      const clit = new CliTest()
+
+      const FLAGS = ' --verbose --check-only '
+      clit.exec(GENERATE_COMMAND + FLAGS + P, (err, response) => {
+        if (err) {
+          return done(err)
+        }
+
+        // File exists but has incorrect syntax
+        should(response.stderr).containEql('could not be found')
+        return done()
+      })
+    })
   })
 
   describe('flag --property', () => {
