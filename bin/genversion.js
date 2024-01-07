@@ -32,7 +32,8 @@ program
       console.error('Missing argument: target')
       return process.exit(1)
     }
-    // TODO const targetBase = path.basename(target)
+    // Short alias for basename used a lot in log output
+    const targetBase = path.basename(target)
 
     // Short alias for verbosity as we use it a lot
     const verbose = cliOpts.verbose
@@ -85,15 +86,15 @@ program
         if (verbose) {
           switch (exitCode) {
             case 0:
-              console.log('The version module ' + path.basename(target) +
+              console.log('The version module ' + targetBase +
                 ' is up to date.')
               break
             case 1:
-              console.error('The version module ' + path.basename(target) +
+              console.error('The version module ' + targetBase +
                 ' could not be found.')
               break
             case 2:
-              console.error('The version module ' + path.basename(target) +
+              console.error('The version module ' + targetBase +
                 ' has outdated or unknown content.')
               break
             default:
@@ -122,14 +123,14 @@ program
             }
 
             if (verbose) {
-              console.log('Version module ' + path.basename(target) +
+              console.log('Version module ' + targetBase +
                 ' was successfully updated to ' + version)
             }
           })
         } else if (opts.force) {
           // Forcefully rewrite unknown file.
           if (verbose) {
-            console.warn('File ' + path.basename(target) +
+            console.warn('File ' + targetBase +
               ' will be forcefully overwritten.')
           }
 
@@ -140,7 +141,7 @@ program
             }
 
             if (verbose) {
-              console.log('Version module ' + path.basename(target) +
+              console.log('Version module ' + targetBase +
                 ' was successfully generated with version ' + version)
             }
           })
@@ -161,7 +162,7 @@ program
           }
 
           if (verbose) {
-            console.log('Version module ' + path.basename(target) +
+            console.log('Version module ' + targetBase +
               ' was successfully generated with version ' + version)
           }
         })
