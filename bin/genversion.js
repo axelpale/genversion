@@ -22,7 +22,6 @@ program
   .option('-u, --strict', 'add "use strict" in generated code')
   .option('-p, --source <path>', 'search for package.json along a custom path')
   .option('-P, --property <key>', 'select properties; default is "version"')
-  .option('-a, --apply <var>', 'replace variable in the target file')
   .option('-c, --check-only', 'check if the version module is up to date')
   .option('-f, --force', 'force file rewrite upon generation')
   .action((target, cliOpts) => {
@@ -41,38 +40,6 @@ program
       cliOpts.properties = ['version']
     }
 
-    // Read variables. Open comma separated list from --apply.
-    // Interacts with --property flag.
-    if (cliOpts.apply === '') {
-      console.error('List of applicable variables cannot be empty.')
-      return process.exit(1)
-    }
-    const variables = {}
-    const variableMap = csvToArray(cliOpts.apply)
-    for (let i = 0; i < variableMap.length; i += 1) {
-      const mapping = variableMap[i]
-      const parts = mapping.split(':')
-      if (parts.length === 1) {
-        // Use properties respectively.
-        if (!cliOpts.properties[i]) {
-          console.error('No properties found to apply to variable ' +
-          '"' + mapping + '". ' +
-          'Ensure you specify equal number of properties and variables.')
-          return process.exit(1)
-        }
-        const prop = cliOpts.properties[i]
-        variables[prop] = mapping
-      } else if (parts.length === 2) {
-        // Property name inside the map
-        const prop = parts[0]
-        const variable = parts[1]
-        variables[prop] = variable
-      } else {
-        console.error('Variable name cannot have colons "' + mapping + '"')
-        return process.exit(1)
-      }
-    }
-
     // Options for check and generate
     const opts = {
       properties: cliOpts.properties,
@@ -88,37 +55,6 @@ program
     // Default source path from which to search for the package.json.
     if (typeof cliOpts.source !== 'string' || cliOpts.source === '') {
       cliOpts.source = target
-    }
-
-    if (cliOpts.apply) {
-      const options = { source: cliOpts.source }
-      gv.apply(target, variables, options, (err, result) => {
-        if (err) {
-          console.error(err.toString())
-          return process.exit(1)
-        }
-
-        if (!result.doesExist) {
-          console.warn('Could not apply. Target file does not exist: ' + target)
-          return process.exit(1)
-        }
-
-        if (!result.wasModified) {
-          // TODO count modifications
-          console.warn('Could not apply. No matching variables found in ' +
-            'target: ' + target)
-          return process.exit(0)
-        }
-
-        if (verbose) {
-          const n = Object.keys(variables).length // TODO count real replaces
-          console.log('Properties were applied to ' + n + ' variables ' +
-            'in the target file successfully.')
-        }
-        return process.exit(0)
-      })
-
-      return
     }
 
     if (cliOpts.checkOnly) {
