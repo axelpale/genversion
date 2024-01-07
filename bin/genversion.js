@@ -22,6 +22,9 @@ program
   .option('-u, --strict', 'add "use strict" in generated code')
   .option('-p, --source <path>', 'search for package.json along a custom path')
   .option('-P, --property <key>', 'select properties; default is "version"')
+  .option('-t, --template <path>', 'generate with a custom template')
+  .option('    --template-engine <name>',
+    'select template engine; default is "ejs"')
   .option('-c, --check-only', 'check if the version module is up to date')
   .option('-f, --force', 'force file rewrite upon generation')
   .action((target, cliOpts) => {
@@ -49,6 +52,8 @@ program
       useEs6Syntax: cliOpts.es6 || cliOpts.esm,
       useStrict: cliOpts.strict,
       source: cliOpts.source,
+      template: cliOpts.template,
+      templateEngine: cliOpts.templateEngine || 'ejs',
       force: cliOpts.force
     }
 

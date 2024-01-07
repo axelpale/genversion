@@ -97,19 +97,21 @@ Directly from `$ genversion --help`:
     Generates a version module at the target filepath.
 
     Options:
-      -V, --version        output genversion's own version
-      -v, --verbose        increased output verbosity
-      -s, --semi           use semicolons in generated code
-      -d, --double         use double quotes in generated code
-      -b, --backtick       use backticks in generated code
-      -e, --esm            use ESM exports in generated code
-          --es6            alias for --esm flag
-      -u, --strict         add "use strict" in generated code
-      -p, --source <path>  search for package.json along a custom path
-      -P, --property <key> select properties; default is "version"
-      -c, --check-only     check if the version module is up to date
-      -f, --force          force file rewrite upon generation
-      -h, --help           display help for command
+      -V, --version                output genversion's own version
+      -v, --verbose                increased output verbosity
+      -s, --semi                   use semicolons in generated code
+      -d, --double                 use double quotes in generated code
+      -b, --backtick               use backticks in generated code
+      -e, --esm                    use ESM exports in generated code
+          --es6                    alias for --esm flag
+      -u, --strict                 add "use strict" in generated code
+      -p, --source <path>          search for package.json along a custom path
+      -P, --property <key>         select properties; default is "version"
+      -t, --template <path>        generate with a custom template
+          --template-engine <name> select template engine; default is "ejs"
+      -c, --check-only             check if the version module is up to date
+      -f, --force                  force file rewrite upon generation
+      -h, --help                   display help for command
 
 ### -V, --version
 
@@ -143,6 +145,30 @@ Search for the package.json along a custom path up to the system root. Defaults 
 
 Select which property or properties will be picked from package.json and inserted into the module. Specify multiple properties with a comma separated list without spaces, for example `-P name,version`. Note that with two or more properties and without `--esm` flag the module is generated with `exports` instead of `module.exports`.
 
+### -t, --template <path>
+
+Use a custom template instead of the default template when generating the module. The template is called with two parameters `package` and `options` where the former is an object containing a set of properties picked from package.json and the latter is an object containing the formatting options. The template is free to respect or neglect the parameters provided.
+
+For example, consider the following `template.ejs`:
+
+```
+export default '<%= package.version %>';
+```
+
+Calling `genversion --template template.ejs lib/version.js` would generate:
+
+```
+export default '1.2.3';
+```
+
+You can control which package properties will be passed to the template with `--properties`. Only `version` is passed by default.
+
+The default template engine is [EJS](https://github.com/mde/ejs). You can select another templating engine with `--template-engine`, given that genversion supports it.
+
+### --template-engine <name>
+
+Select which template engine to use in order to process the template file selected with `--template`. Supported template engines are: `ejs`.
+
 ### -c, --check-only
 
 When `--check-only` flag is used, only the existence and validity of the version module is checked. No files are generated or modified. The flag is useful for pre-commit hooks and similar.
@@ -170,13 +196,20 @@ The available properties and functions are listed below.
 
 ### genversion.check(targetPath, opts, callback)
 
-Check if it is possible to generate the version module into `targetPath`.
+Check if it is possible to generate the version module into `targetPath` and does the file need an update.
 
 **Parameters:**
 
 - *targetPath:* string. An absolute or relative file path. Relative to `process.cwd()`.
 - *opts:* optional options. Available keys are:
   - *source:* optional string. An absolute or relative path to a file or directory. Genversion searches for the source package.json along this path. Defaults to the value of `targetPath`.
+  - *template:* optional string. An absolute or relative path to a custom template file.
+  - *templateEngine:* optional string. Defaults to `auto`.
+  - *useSemicolon:* optional boolean. Defaults to `false`.
+  - *useDoubleQuotes:* optional boolean. Defaults to `false`.
+  - *useBackticks:* optional boolean. Defaults to `false`.
+  - *useEs6Syntax:* optional boolean. Defaults to `false`.
+  - *useStrict:* optional boolean. Defaults to `false`.
 - *callback:* function (err, doesExist, isByGenversion, isUpToDate), where:
   - *doesExist:* boolean. True if a file at targetPath already exists.
   - *isByGenversion:* boolean. True if the existing file seems like it has been generated by genversion.
@@ -206,6 +239,8 @@ Read the version property from the nearest `package.json` along the `targetPath`
 - *opts:* optional options. Available keys are:
   - *properties:* optional array of strings. These properties will be picked from `package.json` and rendered. Defaults to `['version']`.
   - *source:* optional string. An absolute or relative path to a file or directory. Genversion searches for the source package.json along this path. Defaults to the value of `targetPath`.
+  - *template:* optional string. An absolute or relative path to a custom template file.
+  - *templateEngine:* optional string. Defaults to `ejs`.
   - *useSemicolon:* optional boolean. Defaults to `false`.
   - *useDoubleQuotes:* optional boolean. Defaults to `false`.
   - *useBackticks:* optional boolean. Defaults to `false`.
