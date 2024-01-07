@@ -1,7 +1,7 @@
 /* global describe,it,afterEach,beforeEach */
 
 // See https://www.npmjs.com/package/command-line-test
-const CliTest = require('command-line-test')
+const CliTest = require('./clitest')
 const path = require('path')
 const fs = require('fs-extra')
 const should = require('should') // eslint-disable-line no-unused-vars
