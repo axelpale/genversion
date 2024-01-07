@@ -491,4 +491,43 @@ describe('genversion cli', () => {
       })
     })
   })
+
+  describe('flag --template', () => {
+    it('should use custom template', (done) => {
+      const clit = new CliTest()
+      const cmd = GENERATE_COMMAND +
+        ' --template ./test/fixture/template.ejs ' + P
+
+      clit.exec(cmd, (err, response) => {
+        if (err) {
+          return done(err)
+        }
+
+        readTemp().should.equal(
+          'export default \'' + pjson.version + '\'\n')
+
+        return done()
+      })
+    })
+
+    it('should detect missing template', (done) => {
+      const clit = new CliTest()
+      const cmd = GENERATE_COMMAND +
+        ' --template ./test/fixture/foo.ejs ' + P
+
+      clit.exec(cmd, (err, response) => {
+        if (err) {
+          return done(err)
+        }
+
+        response.error.code.should.equal(1)
+        // TODO command-line-test has a bug when error code not zero
+        // TODO it then does not set stdout nor stderr
+        // should(response.stderr).not.equal(null)
+        // should(response.stderr).startWith('Missing')
+
+        return done()
+      })
+    })
+  })
 })
