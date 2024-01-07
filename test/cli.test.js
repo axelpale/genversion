@@ -396,8 +396,8 @@ describe('genversion cli', () => {
         response.error.code.should.equal(1)
         // Should not have any output.
         // Maybe not good way to test because CliTest nulls stdout anyway.
-        should(response.stdout).equal(null)
-        should(response.stderr).equal(null)
+        should(response.stdout).equal('')
+        should(response.stderr).equal('')
 
         return done()
       })
@@ -521,10 +521,7 @@ describe('genversion cli', () => {
         }
 
         response.error.code.should.equal(1)
-        // TODO command-line-test has a bug when error code not zero
-        // TODO it then does not set stdout nor stderr
-        // should(response.stderr).not.equal(null)
-        // should(response.stderr).startWith('Missing')
+        should(response.stderr).startWith('Error: Missing')
 
         return done()
       })

@@ -48,6 +48,8 @@ CliTest.prototype.exec = function () {
     }, options), (error, stdout, stderr) => {
       if (error) {
         this.error = error
+        this.stderr = stderr.trim()
+        this.stdout = stdout.trim()
         return resolve(this.get())
       }
       this.stderr = stderr.trim()
