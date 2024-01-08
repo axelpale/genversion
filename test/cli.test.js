@@ -507,6 +507,48 @@ describe('genversion cli', () => {
       })
     })
 
+    it('should prevent rewrite of unexpected', (done) => {
+      const clit = new CliTest()
+      const cmd = GENERATE_COMMAND +
+        ' --template ./test/fixture/template.ejs ' + P
+
+      const content = 'something important\n'
+      createTemp(content)
+
+      clit.exec(cmd, (err, response) => {
+        if (err) {
+          return done(err)
+        }
+
+        should(response.error.code).equal(1)
+        should(response.stderr).containEql('file')
+        // Check content is untouched
+        readTemp().should.equal(content)
+
+        return done()
+      })
+    })
+
+    it('should allow rewrite', (done) => {
+      const clit = new CliTest()
+      const cmd = GENERATE_COMMAND +
+        ' --template ./test/fixture/template.ejs ' + P
+
+      const content = 'export default \'0.1.2-alpha.0\'\n'
+      createTemp(content)
+
+      clit.exec(cmd, (err, response) => {
+        if (err) {
+          return done(err)
+        }
+
+        const finalContent = 'export default \'' + pjson.version + '\'\n'
+        readTemp().should.equal(finalContent)
+
+        return done()
+      })
+    })
+
     it('should detect missing template', (done) => {
       const clit = new CliTest()
       const cmd = GENERATE_COMMAND +
