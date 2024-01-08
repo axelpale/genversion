@@ -105,8 +105,7 @@ describe('genversion cli', () => {
         return
       }
 
-      // NOTE: response.stderr is null because process exited with code 1
-      response.error.code.should.equal(1)
+      response.exitCode.should.equal(1)
 
       return done()
     })
@@ -393,7 +392,7 @@ describe('genversion cli', () => {
           return done(err)
         }
 
-        response.error.code.should.equal(1)
+        response.exitCode.should.equal(1)
         // Should not have any output.
         // Maybe not good way to test because CliTest nulls stdout anyway.
         should(response.stdout).equal('')
@@ -418,7 +417,7 @@ describe('genversion cli', () => {
           }
 
           // File exists but has incorrect syntax
-          response.error.code.should.equal(2)
+          response.exitCode.should.equal(2)
           return done()
         })
       })
@@ -520,7 +519,7 @@ describe('genversion cli', () => {
           return done(err)
         }
 
-        should(response.error.code).equal(1)
+        should(response.exitCode).equal(1)
         should(response.stderr).containEql('file')
         // Check content is untouched
         readTemp().should.equal(content)
@@ -559,7 +558,7 @@ describe('genversion cli', () => {
           return done(err)
         }
 
-        response.error.code.should.equal(1)
+        response.exitCode.should.equal(1)
         should(response.stderr).startWith('Error: Missing')
 
         return done()
@@ -576,7 +575,7 @@ describe('genversion cli', () => {
           return done(err)
         }
 
-        response.error.code.should.equal(1)
+        response.exitCode.should.equal(1)
 
         return done()
       })
@@ -592,7 +591,7 @@ describe('genversion cli', () => {
           return done(err)
         }
 
-        response.error.code.should.equal(1)
+        response.exitCode.should.equal(1)
         should(response.stderr).containEql('Bad template')
 
         return done()

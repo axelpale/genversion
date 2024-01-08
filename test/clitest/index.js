@@ -12,6 +12,7 @@ function CliTest (options) {
 
 CliTest.prototype.get = function () {
   return {
+    exitCode: this.exitCode,
     error: this.error,
     stdout: this.stdout,
     stderr: this.stderr
@@ -19,6 +20,7 @@ CliTest.prototype.get = function () {
 }
 
 CliTest.prototype.reset = function () {
+  this.exitCode = null
   this.error = null
   this.stdout = null
   this.stderr = null
@@ -47,11 +49,13 @@ CliTest.prototype.exec = function () {
       wrapArgs: false
     }, options), (error, stdout, stderr) => {
       if (error) {
+        this.exitCode = error.code
         this.error = error
         this.stderr = stderr.trim()
         this.stdout = stdout.trim()
         return resolve(this.get())
       }
+      this.exitCode = 0
       this.stderr = stderr.trim()
       this.stdout = stdout.trim()
       resolve(this.get())
