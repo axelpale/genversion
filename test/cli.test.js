@@ -512,6 +512,66 @@ describe('genversion cli', () => {
       })
     })
 
+    it('should handle single quotes in properties', (done) => {
+      const clit = new CliTest()
+      const cmd = GENERATE_COMMAND + ' ' +
+        '--source ./test/fixture ' +
+        '--property author ' + P
+      clit.exec(cmd, (err, response) => {
+        if (err) {
+          return done(err)
+        }
+
+        readTemp().should.equal(SIGNATURE +
+          'module.exports = { ' +
+          'name: \'Fo\\\'o "Bar" l`Baz\'' +
+          ' }\n'
+        )
+
+        return done()
+      })
+    })
+
+    it('should handle double quotes in properties', (done) => {
+      const clit = new CliTest()
+      const cmd = GENERATE_COMMAND + ' ' +
+        '--source ./test/fixture ' +
+        '--property author --double ' + P
+      clit.exec(cmd, (err, response) => {
+        if (err) {
+          return done(err)
+        }
+
+        readTemp().should.equal(SIGNATURE +
+          'module.exports = { ' +
+          'name: "Fo\'o \\"Bar\\" l`Baz"' +
+          ' }\n'
+        )
+
+        return done()
+      })
+    })
+
+    it('should handle backticks in properties', (done) => {
+      const clit = new CliTest()
+      const cmd = GENERATE_COMMAND + ' ' +
+        '--source ./test/fixture ' +
+        '--property author -b ' + P
+      clit.exec(cmd, (err, response) => {
+        if (err) {
+          return done(err)
+        }
+
+        readTemp().should.equal(SIGNATURE +
+          'module.exports = { ' +
+          'name: `Fo\'o "Bar" l\\`Baz`' +
+          ' }\n'
+        )
+
+        return done()
+      })
+    })
+
     it('should not understand multiple property flags', (done) => {
       const clit = new CliTest()
       const cmd = GENERATE_COMMAND + ' --property name ' +
