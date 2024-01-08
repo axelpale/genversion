@@ -131,6 +131,22 @@ describe('genversion cli', () => {
       })
     })
 
+    it('should allow --esm flag', (done) => {
+      const clit = new CliTest()
+
+      clit.exec(GENERATE_COMMAND + ' --esm ' + P, (err, response) => {
+        if (err) {
+          console.error(err, response)
+          return
+        }
+
+        readTemp().should.equal(SIGNATURE +
+          'export const version = \'' + pjson.version + '\'\n')
+
+        return done()
+      })
+    })
+
     it('should allow --strict flag', (done) => {
       const clit = new CliTest()
 

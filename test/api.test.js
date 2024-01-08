@@ -64,7 +64,7 @@ describe('genversion api', () => {
   })
 
   it('should recognise es6 flag', (done) => {
-    gv.generate(P, { useEs6Syntax: true }, (err, version) => {
+    gv.generate(P, { useEsmSyntax: true }, (err, version) => {
       should.equal(err, null)
       version.should.equal(pjson.version)
 

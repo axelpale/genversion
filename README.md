@@ -223,7 +223,8 @@ Check if it is possible to generate the version module into `targetPath`. Check 
   - *useSemicolon:* optional boolean. Defaults to `false`.
   - *useDoubleQuotes:* optional boolean. Defaults to `false`.
   - *useBackticks:* optional boolean. Defaults to `false`.
-  - *useEs6Syntax:* optional boolean. Defaults to `false`.
+  - *useEs6Syntax:* deprecated alias of `useEsmSyntax`.
+  - *useEsmSyntax:* optional boolean. Use ECMAScript modules. Defaults to `false`.
   - *useStrict:* optional boolean. Defaults to `false`.
 - *callback:* function (err, doesExist, isByGenversion, isUpToDate), where:
   - *doesExist:* boolean. True if a file at targetPath already exists.
@@ -259,7 +260,8 @@ Read the version property from the nearest `package.json` along the `targetPath`
   - *useSemicolon:* optional boolean. Defaults to `false`.
   - *useDoubleQuotes:* optional boolean. Defaults to `false`.
   - *useBackticks:* optional boolean. Defaults to `false`.
-  - *useEs6Syntax:* optional boolean. Defaults to `false`.
+  - *useEs6Syntax:* deprecated alias of `useEsmSyntax`.
+  - *useEsmSyntax:* optional boolean. Use ECMAScript modules. Defaults to `false`.
   - *useStrict:* optional boolean. Defaults to `false`.
 - *callback:* function (err, version). Parameter *version* is the version string read from `package.json`. Parameter *err* is non-null if `package.json` cannot be found, its version is not a string, or writing the version module fails.
 
