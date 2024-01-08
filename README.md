@@ -168,12 +168,12 @@ Select which property or properties will be picked from package.json and inserte
 
 ### -t, --template <path>
 
-Use a custom template instead of the default template when generating the module. The template is called with two parameters `package` and `options` where the former is an object containing a set of properties picked from package.json and the latter is an object containing the formatting options. The template is free to respect or neglect the parameters provided.
+Use a custom template instead of the default template when generating the module. The template is called with two parameters `pkg` and `options` where the former is an object containing a set of properties picked from package.json and the latter is an object containing the formatting options. The template is free to respect or neglect the parameters provided.
 
 For example, consider the following `template.ejs`:
 
 ```
-export default '<%= package.version %>';
+export default '<%= pkg.version %>';
 ```
 
 Calling `genversion --template template.ejs lib/version.js` would generate:
@@ -182,7 +182,7 @@ Calling `genversion --template template.ejs lib/version.js` would generate:
 export default '1.2.3';
 ```
 
-Use `--properties` to control which package properties will be passed to the template as `package`. Only `version` is passed by default.
+Use `--properties` to control which package properties will be passed to the template in `pkg` object. Only `version` is passed by default.
 
 The default template engine is [EJS](https://github.com/mde/ejs). You can select another templating engine with `--template-engine`, given that genversion supports it.
 
