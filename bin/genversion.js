@@ -9,23 +9,23 @@ const path = require('path')
 const program = commander.program
 
 program
-  .version(gv.version, '-V, --version', 'output genversion\'s own version')
   .arguments('<target>')
   .description('Generates a version module at the target filepath.')
-  .option('-v, --verbose', 'increased output verbosity')
   .option('-s, --semi', 'use semicolons in generated code')
   .option('-d, --double', 'use double quotes in generated code')
   .option('-b, --backtick', 'use backticks in generated code')
   .option('-e, --esm', 'use ESM exports in generated code')
   .option('    --es6', 'alias for --esm flag')
   .option('-u, --strict', 'add "use strict" in generated code')
+  .option('-c, --check-only', 'check if target is up to date')
+  .option('-f, --force', 'force file rewrite upon generation')
   .option('-p, --source <path>', 'search for package.json along a custom path')
   .option('-P, --property <key>', 'select properties; default is "version"')
   .option('-t, --template <path>', 'generate with a custom template')
   .option('    --template-engine <name>',
     'select template engine; default is "ejs"')
-  .option('-c, --check-only', 'check if target is up to date')
-  .option('-f, --force', 'force file rewrite upon generation')
+  .option('-v, --verbose', 'increased output verbosity')
+  .version(gv.version, '-V, --version', 'output genversion\'s own version')
   .action((target, cliOpts) => {
     if (typeof target !== 'string' || target === '') {
       console.error('Missing argument: target')

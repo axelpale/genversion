@@ -92,26 +92,28 @@ Great! Having a version property in your module is very convenient for debugging
 
 Directly from `$ genversion --help`:
 
-    Usage: genversion [options] <target>
+```
+Usage: genversion [options] <target>
 
-    Generates a version module at the target filepath.
+Generates a version module at the target filepath.
 
-    Options:
-      -V, --version                output genversion's own version
-      -v, --verbose                increased output verbosity
-      -s, --semi                   use semicolons in generated code
-      -d, --double                 use double quotes in generated code
-      -b, --backtick               use backticks in generated code
-      -e, --esm                    use ESM exports in generated code
-          --es6                    alias for --esm flag
-      -u, --strict                 add "use strict" in generated code
-      -p, --source <path>          search for package.json along a custom path
-      -P, --property <key>         select properties; default is "version"
-      -t, --template <path>        generate with a custom template
-          --template-engine <name> select template engine; default is "ejs"
-      -c, --check-only             check if target is up to date
-      -f, --force                  force file rewrite upon generation
-      -h, --help                   display help for command
+Options:
+  -s, --semi                   use semicolons in generated code
+  -d, --double                 use double quotes in generated code
+  -b, --backtick               use backticks in generated code
+  -e, --esm                    use ESM exports in generated code
+      --es6                    alias for --esm flag
+  -u, --strict                 add "use strict" in generated code
+  -c, --check-only             check if target is up to date
+  -f, --force                  force file rewrite upon generation
+  -p, --source <path>          search for package.json along a custom path
+  -P, --property <key>         select properties; default is "version"
+  -t, --template <path>        generate with a custom template
+      --template-engine <name> select template engine; default is "ejs"
+  -v, --verbose                increased output verbosity
+  -V, --version                output genversion's own version
+  -h, --help                   display help for command
+```
 
 ### -V, --version
 
