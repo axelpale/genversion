@@ -53,15 +53,14 @@ program
     // Options for check and generate
     const opts = {
       properties: cliOpts.properties,
+      source: cliOpts.source,
+      template: cliOpts.template,
+      templateEngine: cliOpts.templateEngine || 'ejs',
       useSemicolon: cliOpts.semi,
       useDoubleQuotes: cliOpts.double,
       useBackticks: cliOpts.backtick,
       useEs6Syntax: cliOpts.es6 || cliOpts.esm,
-      useStrict: cliOpts.strict,
-      source: cliOpts.source,
-      template: cliOpts.template,
-      templateEngine: cliOpts.templateEngine || 'ejs',
-      force: cliOpts.force
+      useStrict: cliOpts.strict
     }
 
     // Default source path from which to search for the package.json.
@@ -136,7 +135,7 @@ program
                 ' was successfully updated to ' + version)
             }
           })
-        } else if (opts.force) {
+        } else if (cliOpts.force) {
           // Forcefully rewrite unknown file.
           if (verbose) {
             console.warn('File ' + targetBase +
