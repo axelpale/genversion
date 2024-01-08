@@ -2,7 +2,7 @@
 
 ![Logo](doc/genversion-logo-halo.png?raw=true "Abracadabra...and behold!")
 
-[![Travis build status](https://img.shields.io/travis/com/axelpale/genversion)](https://app.travis-ci.com/github/axelpale/genversion)
+[![GitHub Actions workflow status](https://img.shields.io/github/actions/workflow/status/axelpale/genversion/genversion-ci.yml)](https://github.com/axelpale/genversion/actions/workflows/genversion-ci.yml)
 [![npm version](https://img.shields.io/npm/v/genversion?color=green)](https://www.npmjs.com/package/genversion)
 [![license](https://img.shields.io/npm/l/genversion)](#license)
 [![npm downloads](https://img.shields.io/npm/dm/genversion?color=green)](https://www.npmjs.com/package/genversion)

@@ -5,6 +5,9 @@
   "keywords": ["foo", "bar"],
   "main": "index.js",
   "license": "MIT",
+  "author": {
+    "name": "Fo'o \"Bar\" l`Baz"
+  },
   "dependencies": {},
   "engines": {
     "node": ">=10.0.0",
