@@ -529,10 +529,10 @@ describe('genversion cli', () => {
       })
     })
 
-    it('should allow rewrite', (done) => {
+    it('should allow rewrite of familiar', (done) => {
       const clit = new CliTest()
       const cmd = GENERATE_COMMAND +
-        ' --template ./test/fixture/template.ejs ' + P
+        ' -t ./test/fixture/template.ejs ' + P
 
       const content = 'export default \'0.1.2-alpha.0\'\n'
       createTemp(content)
@@ -549,7 +549,7 @@ describe('genversion cli', () => {
       })
     })
 
-    it('should detect missing template', (done) => {
+    it('should detect non-existent template file', (done) => {
       const clit = new CliTest()
       const cmd = GENERATE_COMMAND +
         ' --template ./test/fixture/foo.ejs ' + P
@@ -561,6 +561,22 @@ describe('genversion cli', () => {
 
         response.error.code.should.equal(1)
         should(response.stderr).startWith('Error: Missing')
+
+        return done()
+      })
+    })
+
+    it('should detect missing template path', (done) => {
+      const clit = new CliTest()
+      const cmd = GENERATE_COMMAND +
+        ' --template ' + P
+
+      clit.exec(cmd, (err, response) => {
+        if (err) {
+          return done(err)
+        }
+
+        response.error.code.should.equal(1)
 
         return done()
       })
