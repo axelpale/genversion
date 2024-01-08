@@ -270,6 +270,34 @@ Read the version property from the nearest `package.json` along the `targetPath`
 
 The version string of the genversion module in [semantic versioning](http://semver.org/) format. Generated with genversion itself, of course ;)
 
+## Integrating with the npm version command
+`npm` allows you to add a `postversion` script that will be executed whenever you run the `npm version <major/minor/patch>` command to bump the package version. You can use this to integrate genversion into your workflow. Here are the steps to do this:
+
+1. Install genversion as a dev dependency
+2. Create a `postversion.sh` file with the following contents:
+```sh
+#!/bin/sh
+
+lastTag=$(git describe --exact-match --abbrev=0)
+genversion app/lib/version.js
+git add app/lib/version.js
+git commit --amend --no-edit
+git tag -fa $lastTag -m $lastTag
+```
+3. Run `chmod +x postversion.sh` to make the script executable
+4. Assign this script as the "postversion" script in `package.json`
+```json
+{
+  ...
+  "scripts": {
+    "postversion": "./postversion.sh"
+    ...
+  }
+  ...
+}
+```
+
+Then, when you run `npm version major/minor/patch`, genversion is automatically called and correctly amends the version commit as well.
 
 ## Projects using genversion
 
