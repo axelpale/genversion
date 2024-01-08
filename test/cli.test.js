@@ -474,6 +474,28 @@ describe('genversion cli', () => {
       })
     })
 
+    it('should render non-string properties', (done) => {
+      const clit = new CliTest()
+      const cmd = GENERATE_COMMAND + ' ' +
+        '--source ./test/fixture ' +
+        '--property keywords,engines ' + P
+      clit.exec(cmd, (err, response) => {
+        if (err) {
+          return done(err)
+        }
+
+        readTemp().should.equal(SIGNATURE +
+          'exports.keywords = [\'foo\', \'bar\']\n' +
+          'exports.engines = { ' +
+          'node: \'>=10.0.0\', ' +
+          '\'foo-bar\': \'>=1337.0.0\'' +
+          ' }\n'
+        )
+
+        return done()
+      })
+    })
+
     it('should not understand multiple property flags', (done) => {
       const clit = new CliTest()
       const cmd = GENERATE_COMMAND + ' --property name ' +
