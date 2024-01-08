@@ -24,7 +24,7 @@ program
   .option('-t, --template <path>', 'generate with a custom template')
   .option('    --template-engine <name>',
     'select template engine; default is "ejs"')
-  .option('-c, --check-only', 'check if the version module is up to date')
+  .option('-c, --check-only', 'check if target is up to date')
   .option('-f, --force', 'force file rewrite upon generation')
   .action((target, cliOpts) => {
     if (typeof target !== 'string' || target === '') {

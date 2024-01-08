@@ -109,7 +109,7 @@ Directly from `$ genversion --help`:
       -P, --property <key>         select properties; default is "version"
       -t, --template <path>        generate with a custom template
           --template-engine <name> select template engine; default is "ejs"
-      -c, --check-only             check if the version module is up to date
+      -c, --check-only             check if target is up to date
       -f, --force                  force file rewrite upon generation
       -h, --help                   display help for command
 
