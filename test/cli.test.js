@@ -19,6 +19,9 @@ const P = '.tmp/v.js'
 const createTemp = (content) => {
   fs.outputFileSync(P, content)
 }
+const existsTemp = () => {
+  return fs.existsSync(P)
+}
 const readTemp = () => {
   return fs.readFileSync(P).toString()
 }
@@ -482,6 +485,22 @@ describe('genversion cli', () => {
 
         readTemp().should.equal(SIGNATURE +
           'export const version = \'' + pjson.version + '\'\n')
+
+        return done()
+      })
+    })
+
+    it('should detect null properties', (done) => {
+      const clit = new CliTest()
+      const cmd = GENERATE_COMMAND + ' --property --esm ' + P
+      clit.exec(cmd, (err, response) => {
+        if (err) {
+          return done(err)
+        }
+
+        response.exitCode.should.equal(1)
+        response.stderr.should.containEql('property')
+        existsTemp().should.equal(false)
 
         return done()
       })

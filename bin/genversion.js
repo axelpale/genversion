@@ -39,6 +39,12 @@ program
     const verbose = cliOpts.verbose
 
     // Read properties. Open comma separated list
+    if (cliOpts.property && cliOpts.property.startsWith('-')) {
+      // Detect forgotten property list (argument becomes the next flag)
+      console.error('error: property cannot be empty.')
+      process.exitCode = 1
+      return
+    }
     cliOpts.properties = csvToArray(cliOpts.property)
     if (cliOpts.properties.length === 0) {
       cliOpts.properties = ['version']
