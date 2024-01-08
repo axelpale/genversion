@@ -1,7 +1,7 @@
 /* global describe,it,afterEach,beforeEach */
 
 // See https://www.npmjs.com/package/command-line-test
-const CliTest = require('command-line-test')
+const CliTest = require('./clitest')
 const path = require('path')
 const fs = require('fs-extra')
 const should = require('should') // eslint-disable-line no-unused-vars
@@ -18,6 +18,9 @@ const P = '.tmp/v.js'
 
 const createTemp = (content) => {
   fs.outputFileSync(P, content)
+}
+const existsTemp = () => {
+  return fs.existsSync(P)
 }
 const readTemp = () => {
   return fs.readFileSync(P).toString()
@@ -105,8 +108,7 @@ describe('genversion cli', () => {
         return
       }
 
-      // NOTE: response.stderr is null because process exited with code 1
-      response.error.code.should.equal(1)
+      response.exitCode.should.equal(1)
 
       return done()
     })
@@ -117,6 +119,22 @@ describe('genversion cli', () => {
       const clit = new CliTest()
 
       clit.exec(GENERATE_COMMAND + ' --es6 ' + P, (err, response) => {
+        if (err) {
+          console.error(err, response)
+          return
+        }
+
+        readTemp().should.equal(SIGNATURE +
+          'export const version = \'' + pjson.version + '\'\n')
+
+        return done()
+      })
+    })
+
+    it('should allow --esm flag', (done) => {
+      const clit = new CliTest()
+
+      clit.exec(GENERATE_COMMAND + ' --esm ' + P, (err, response) => {
         if (err) {
           console.error(err, response)
           return
@@ -211,10 +229,10 @@ describe('genversion cli', () => {
       })
     })
 
-    it('should allow --semi and --es6 flag', (done) => {
+    it('should allow --semi and --esm flag', (done) => {
       const clit = new CliTest()
 
-      clit.exec(GENERATE_COMMAND + ' --semi --es6 ' + P, (err, response) => {
+      clit.exec(GENERATE_COMMAND + ' --semi --esm ' + P, (err, response) => {
         if (err) {
           console.error(err, response)
           return
@@ -317,14 +335,39 @@ describe('genversion cli', () => {
     })
   })
 
+  describe('flag --force', () => {
+    it('should generate if unknown file exists', (done) => {
+      // Generate file with unknown signature
+      const INVALID_SIGNATURE = 'foobarcontent'
+      createTemp(INVALID_SIGNATURE)
+
+      const clit = new CliTest()
+
+      clit.exec(GENERATE_COMMAND + ' --force ' + P, (err, response) => {
+        if (err) {
+          return done(err)
+        }
+
+        // Should not have any output
+        response.stdout.should.equal('')
+        response.stderr.should.equal('')
+
+        // Ensure the file exists and was replaced
+        fs.existsSync(P).should.equal(true)
+        readTemp().should.not.equal(INVALID_SIGNATURE)
+
+        return done()
+      })
+    })
+  })
+
   describe('flag --version', () => {
     it('should show genversion\'s own version', (done) => {
       const clit = new CliTest()
 
       clit.exec(GENERATE_COMMAND + ' --version', (err, response) => {
         if (err) {
-          console.error(err)
-          return
+          return done(err)
         }
 
         response.stdout.should.equal(pjson.version)
@@ -360,7 +403,7 @@ describe('genversion cli', () => {
       })
     })
 
-    it('should detect missing file', done => {
+    it('should detect missing file', (done) => {
       const clit = new CliTest()
 
       clit.exec(GENERATE_COMMAND + ' --check-only ' + P, (err, response) => {
@@ -368,17 +411,17 @@ describe('genversion cli', () => {
           return done(err)
         }
 
-        response.error.code.should.equal(1)
+        response.exitCode.should.equal(1)
         // Should not have any output.
         // Maybe not good way to test because CliTest nulls stdout anyway.
-        should(response.stdout).equal(null)
-        should(response.stderr).equal(null)
+        should(response.stdout).equal('')
+        should(response.stderr).equal('')
 
         return done()
       })
     })
 
-    it('should detect a standard change', done => {
+    it('should detect a standard change', (done) => {
       const clit = new CliTest()
 
       clit.exec(GENERATE_COMMAND + ' ' + P, (err) => {
@@ -393,28 +436,223 @@ describe('genversion cli', () => {
           }
 
           // File exists but has incorrect syntax
-          response.error.code.should.equal(2)
+          response.exitCode.should.equal(2)
           return done()
         })
       })
     })
 
-    // TODO cannot test verbosity with check-only due to annoying shortcoming
-    // TODO in command-line-test, where stdout and stderr become nulls
-    // TODO if exit code other than 0
-    // it('should have verbose output', done => {
-    //   const clit = new CliTest()
-    //
-    //   const FLAGS = ' --verbose --check-only '
-    //   clit.exec(GENERATE_COMMAND + FLAGS + P, (err, response) => {
-    //     if (err) {
-    //       return done(err)
-    //     }
-    //
-    //     // File exists but has incorrect syntax
-    //     response.stdout.should.include('could not be found')
-    //     return done()
-    //   })
-    // })
+    it('should have verbose output', (done) => {
+      const clit = new CliTest()
+
+      const FLAGS = ' --verbose --check-only '
+      clit.exec(GENERATE_COMMAND + FLAGS + P, (err, response) => {
+        if (err) {
+          return done(err)
+        }
+
+        // File exists but has incorrect syntax
+        should(response.stderr).containEql('could not be found')
+        return done()
+      })
+    })
+  })
+
+  describe('flag --property', () => {
+    it('should pick selected property', (done) => {
+      const clit = new CliTest()
+
+      clit.exec(GENERATE_COMMAND + ' --property name ' + P, (err, response) => {
+        if (err) {
+          return done(err)
+        }
+
+        readTemp().should.equal(SIGNATURE +
+          'module.exports = \'' + pjson.name + '\'\n')
+
+        return done()
+      })
+    })
+
+    it('should pick multiple properties', (done) => {
+      const clit = new CliTest()
+      const cmd = GENERATE_COMMAND + ' --property name,version ' + P
+      clit.exec(cmd, (err, response) => {
+        if (err) {
+          return done(err)
+        }
+
+        readTemp().should.equal(SIGNATURE +
+          'exports.name = \'' + pjson.name + '\'\n' +
+          'exports.version = \'' + pjson.version + '\'\n')
+
+        return done()
+      })
+    })
+
+    it('should render non-string properties', (done) => {
+      const clit = new CliTest()
+      const cmd = GENERATE_COMMAND + ' ' +
+        '--source ./test/fixture ' +
+        '--property keywords,engines ' + P
+      clit.exec(cmd, (err, response) => {
+        if (err) {
+          return done(err)
+        }
+
+        readTemp().should.equal(SIGNATURE +
+          'exports.keywords = [\'foo\', \'bar\']\n' +
+          'exports.engines = { ' +
+          'node: \'>=10.0.0\', ' +
+          '\'foo-bar\': \'>=1337.0.0\'' +
+          ' }\n'
+        )
+
+        return done()
+      })
+    })
+
+    it('should not understand multiple property flags', (done) => {
+      const clit = new CliTest()
+      const cmd = GENERATE_COMMAND + ' --property name ' +
+        '--property version --esm ' + P
+      clit.exec(cmd, (err, response) => {
+        if (err) {
+          return done(err)
+        }
+
+        readTemp().should.equal(SIGNATURE +
+          'export const version = \'' + pjson.version + '\'\n')
+
+        return done()
+      })
+    })
+
+    it('should detect null properties', (done) => {
+      const clit = new CliTest()
+      const cmd = GENERATE_COMMAND + ' --property --esm ' + P
+      clit.exec(cmd, (err, response) => {
+        if (err) {
+          return done(err)
+        }
+
+        response.exitCode.should.equal(1)
+        response.stderr.should.containEql('property')
+        existsTemp().should.equal(false)
+
+        return done()
+      })
+    })
+  })
+
+  describe('flag --template', () => {
+    it('should use custom template', (done) => {
+      const clit = new CliTest()
+      const cmd = GENERATE_COMMAND +
+        ' --template ./test/fixture/template.ejs ' + P
+
+      clit.exec(cmd, (err, response) => {
+        if (err) {
+          return done(err)
+        }
+
+        readTemp().should.equal(
+          'export default \'' + pjson.version + '\'\n')
+
+        return done()
+      })
+    })
+
+    it('should prevent rewrite of unexpected', (done) => {
+      const clit = new CliTest()
+      const cmd = GENERATE_COMMAND +
+        ' --template ./test/fixture/template.ejs ' + P
+
+      const content = 'something important\n'
+      createTemp(content)
+
+      clit.exec(cmd, (err, response) => {
+        if (err) {
+          return done(err)
+        }
+
+        should(response.exitCode).equal(1)
+        should(response.stderr).containEql('file')
+        // Check content is untouched
+        readTemp().should.equal(content)
+
+        return done()
+      })
+    })
+
+    it('should allow rewrite of familiar', (done) => {
+      const clit = new CliTest()
+      const cmd = GENERATE_COMMAND +
+        ' -t ./test/fixture/template.ejs ' + P
+
+      const content = 'export default \'0.1.2-alpha.0\'\n'
+      createTemp(content)
+
+      clit.exec(cmd, (err, response) => {
+        if (err) {
+          return done(err)
+        }
+
+        const finalContent = 'export default \'' + pjson.version + '\'\n'
+        readTemp().should.equal(finalContent)
+
+        return done()
+      })
+    })
+
+    it('should detect non-existent template file', (done) => {
+      const clit = new CliTest()
+      const cmd = GENERATE_COMMAND +
+        ' --template ./test/fixture/foo.ejs ' + P
+
+      clit.exec(cmd, (err, response) => {
+        if (err) {
+          return done(err)
+        }
+
+        response.exitCode.should.equal(1)
+        should(response.stderr).startWith('Error: Missing')
+
+        return done()
+      })
+    })
+
+    it('should detect missing template path', (done) => {
+      const clit = new CliTest()
+      const cmd = GENERATE_COMMAND +
+        ' --template ' + P
+
+      clit.exec(cmd, (err, response) => {
+        if (err) {
+          return done(err)
+        }
+
+        response.exitCode.should.equal(1)
+
+        return done()
+      })
+    })
+
+    it('should detect corrupted template', (done) => {
+      const clit = new CliTest()
+      const cmd = GENERATE_COMMAND +
+        ' --template ./test/fixture/invalid.ejs ' + P
+
+      clit.exec(cmd, (err, response) => {
+        if (err) {
+          return done(err)
+        }
+
+        response.exitCode.should.equal(1)
+        should(response.stderr).containEql('Bad template')
+
+        return done()
+      })
+    })
   })
 })
