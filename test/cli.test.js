@@ -581,5 +581,22 @@ describe('genversion cli', () => {
         return done()
       })
     })
+
+    it('should detect corrupted template', (done) => {
+      const clit = new CliTest()
+      const cmd = GENERATE_COMMAND +
+        ' --template ./test/fixture/invalid.ejs ' + P
+
+      clit.exec(cmd, (err, response) => {
+        if (err) {
+          return done(err)
+        }
+
+        response.error.code.should.equal(1)
+        should(response.stderr).containEql('Bad template')
+
+        return done()
+      })
+    })
   })
 })
